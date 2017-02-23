@@ -30,6 +30,9 @@ index.html - The web page document containing the canvas (drawing surface), that
       main_canvas.register_display_object( new Debug_Screen     ( main_canvas ) );  // We instantiate some of our custom "Animation" subclasses and register these displayable
       main_canvas.register_display_object( new Example_Animation( main_canvas ) );  // objects to their master "Canvas_Manager" object -- which OpenGL calls upon every time a
       main_canvas.register_display_object( new Example_Camera   ( main_canvas ) );  // draw / keyboard / mouse event happens.
+      main_canvas.register_display_object( new Surfaces_Tester  ( main_canvas ) );
+      main_canvas.register_display_object( new Bee_Scene        ( main_canvas ) );
+      
       main_canvas.render();
     }
 
