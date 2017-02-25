@@ -1,8 +1,8 @@
 # project-group16: Flashy Fish
 
-Clone the repository!!
+1. Clone the repository!!
 
-Commit Changes (If there are errors, pull/ merge)
+2. Commit Changes (If there are errors, pull/ merge [https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/](see this article))
 
-Push them to the Repository
+3. Push them to the Repository
 
