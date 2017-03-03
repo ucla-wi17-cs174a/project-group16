@@ -6,3 +6,4 @@
 
 3. Push them to the Repository
 
+Stuff to do: [github "checklist" - you can add/ move tasks around](https://github.com/ucla-wi17-cs174a/project-group16/projects/1)
