@@ -27,7 +27,7 @@ index.html - The web page document containing the canvas (drawing surface), that
       shaders_in_use[ "Default"     ] = new Phong_or_Gouraud_Shader( g_state );    // Put all our shader programs in the GPU.
       shaders_in_use[ "Demo_Shader" ] = new Funny_Shader           ( g_state );
                                                                                 // IMPORTANT: -- You have to include all your new images in here:
-      texture_filenames_to_load.push( "text.png", "stars.png", "earth.gif");                             // Put all our texture images in the GPU.
+      texture_filenames_to_load.push( "text.png", "stars.png", "earth.gif", "fishScales.jpg");                             // Put all our texture images in the GPU.
       for( var i = 0; i < texture_filenames_to_load.length; i++ ) textures_in_use[ texture_filenames_to_load[i] ] = ( new Texture( texture_filenames_to_load[i], false ) );
       
       main_canvas.register_display_object( new Debug_Screen     ( main_canvas ) );  // We instantiate some of our custom "Animation" subclasses and register these displayable

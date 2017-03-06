@@ -13,7 +13,7 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
         shaders_in_use[ "Default" ].activate();
         this.graphics_state.lights = [ new Light( vec4(  3,  2,  1, 1 ), Color( 1, 0, 0, 1 ), 100000000 ),
                                        new Light( vec4( -1, -2, -3, 1 ), Color( 0, 1, 0, 1 ), 100000000 ) ];
-        var yellow_clay = new Material( Color(  1,  1, .3, 1 ), .2, 1, .7, 40 ),
+        var fish_body_yellow = new Material( Color(  1,  1, .3, 1 ), .2, 1, .7, 40, "fishScales.jpg" ),
             brown_clay  = new Material( Color( .5, .5, .3, 1 ), .2, 1,  1, 40 ),
             orange_clay  = new Material( Color( 1, 0.64, 0, 1 ), .2, 1,  1, 40 );
         
@@ -36,7 +36,7 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
         model_transform = mult(model_transform, scale(2, 1, 1));
 
 
-        shapes_in_use.body.draw( this.graphics_state, model_transform, yellow_clay);
+        shapes_in_use.body.draw( this.graphics_state, model_transform, fish_body_yellow);
         model_transform = stack[0];
         model_transform = mult(model_transform, translation(2, 0, 0));
         model_transform = mult(model_transform, rotation(2, 2, 1, 0));
@@ -49,7 +49,7 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
         
         model_transform = mult(model_transform, translation(-4, 0, 0));
         model_transform = mult(model_transform, scale(1, 1, 1));
-        shapes_in_use.ball.draw( this.graphics_state, model_transform, yellow_clay);
+        shapes_in_use.ball.draw( this.graphics_state, model_transform, fish_body_yellow);
         
         for(var i = 0; i < 2; i++){
           model_transform = bodyCenter;
