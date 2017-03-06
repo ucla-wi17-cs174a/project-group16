@@ -15,25 +15,30 @@ index.html - The web page document containing the canvas (drawing surface), that
 <script type="text/javascript" src="surfaces-tester.js"       ></script>
 <script type="text/javascript" src="bee-scene.js"             ></script>
 
+<script type="text/javascript" src="FishScene.js"             ></script>
+
 <script type="text/javascript"> "use strict"  
   window.onload = function init()           // ********************* OUR WHOLE PROGRAM'S ENTRY POINT ********************* 
     {	                                                  // Ocean Blue: 28,107,160 --> 0.11, 0.42, 0.63 (originally black: 0, 0, 0)
                                                         // reference: http://www.colourlovers.com/color/1C6BA0/ocean_blue
-      var main_canvas = new Canvas_Manager( "gl-canvas", Color( 0.11, 0.42, 0.63, 1 ) ),    // Make the master canvas manager.  Set your background color here too.
+      var main_canvas = new Canvas_Manager( "gl-canvas", Color( 0.0, 0.0, 0.0, 1 ) ),    // Make the master canvas manager.  Set your background color here too.
           g_state = main_canvas.shared_scratchpad.graphics_state;
           
       shaders_in_use[ "Default"     ] = new Phong_or_Gouraud_Shader( g_state );    // Put all our shader programs in the GPU.
       shaders_in_use[ "Demo_Shader" ] = new Funny_Shader           ( g_state );
                                                                                 // IMPORTANT: -- You have to include all your new images in here:
-      texture_filenames_to_load.push( "text.png" );                             // Put all our texture images in the GPU.
+      texture_filenames_to_load.push( "text.png", "stars.png", "earth.gif");                             // Put all our texture images in the GPU.
       for( var i = 0; i < texture_filenames_to_load.length; i++ ) textures_in_use[ texture_filenames_to_load[i] ] = ( new Texture( texture_filenames_to_load[i], false ) );
       
       main_canvas.register_display_object( new Debug_Screen     ( main_canvas ) );  // We instantiate some of our custom "Animation" subclasses and register these displayable
-      main_canvas.register_display_object( new Example_Animation( main_canvas ) );  // objects to their master "Canvas_Manager" object -- which OpenGL calls upon every time a
+      //main_canvas.register_display_object( new Example_Animation( main_canvas ) );  // objects to their master "Canvas_Manager" object -- which OpenGL calls upon every time a
       main_canvas.register_display_object( new Example_Camera   ( main_canvas ) );  // draw / keyboard / mouse event happens.
       
+
+      main_canvas.register_display_object( new Fish_Scene  ( main_canvas ) );
+
       // uncomment to see all the surfaces with texture maps
-      main_canvas.register_display_object( new Surfaces_Tester  ( main_canvas ) );
+      //main_canvas.register_display_object( new Surfaces_Tester  ( main_canvas ) );
 
       // uncomment to see the bee scene
       //main_canvas.register_display_object( new Bee_Scene        ( main_canvas ) );
