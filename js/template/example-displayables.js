@@ -77,8 +77,8 @@ Declare_Any_Class( "Example_Camera",     // An example of a displayable object t
       },
     'update_strings': function( user_interface_string_manager )       // Strings that this displayable object (Animation) contributes to the UI:
       { var C_inv = inverse( this.graphics_state.camera_transform ), pos = mult_vec( C_inv, vec4( 0, 0, 0, 1 ) ),
-                                                                  z_axis = mult_vec( C_inv, vec4( 0, 0, 1, 0 ) );                                                                 
-        user_interface_string_manager.string_map["origin" ] = "Center of rotation: " + this.origin[0].toFixed(0) + ", " + this.origin[1].toFixed(0) + ", " + this.origin[2].toFixed(0);                                                       
+                                                                  z_axis = mult_vec( C_inv, vec4( 0, 0, 1, 0 ) );
+        user_interface_string_manager.string_map["origin" ] = "Center of rotation: " + this.origin[0].toFixed(0) + ", " + this.origin[1].toFixed(0) + ", " + this.origin[2].toFixed(0);
         user_interface_string_manager.string_map["cam_pos"] = "Cam Position: " + pos[0].toFixed(2) + ", " + pos[1].toFixed(2) + ", " + pos[2].toFixed(2);    // The below is affected by left hand rule:
         user_interface_string_manager.string_map["facing" ] = "Facing: "       + ( ( z_axis[0] > 0 ? "West " : "East ") + ( z_axis[1] > 0 ? "Down " : "Up " ) + ( z_axis[2] > 0 ? "North" : "South" ) );
       },
@@ -111,14 +111,14 @@ Declare_Any_Class( "Example_Camera",     // An example of a displayable object t
 Declare_Any_Class( "Example_Animation",  // An example of a displayable object that our class Canvas_Manager can manage.  This one draws the scene's 3D shapes.
   { 'construct': function( context )
       { this.shared_scratchpad    = context.shared_scratchpad;
-      
+
         shapes_in_use.triangle        = new Triangle();                  // At the beginning of our program, instantiate all shapes we plan to use,
         shapes_in_use.strip           = new Square();                   // each with only one instance in the graphics card's memory.
         shapes_in_use.bad_tetrahedron = new Tetrahedron( false );      // For example we'll only create one "cube" blueprint in the GPU, but we'll re-use
         shapes_in_use.tetrahedron     = new Tetrahedron( true );      // it many times per call to display to get multiple cubes in the scene.
         shapes_in_use.windmill        = new Windmill( 10 );
         shapes_in_use.reg_poly        = new Regular_2D_Polygon( 100, 100 );
-        
+
         shapes_in_use.triangle_flat        = Triangle.prototype.auto_flat_shaded_version();
         shapes_in_use.strip_flat           = Square.prototype.auto_flat_shaded_version();
         shapes_in_use.bad_tetrahedron_flat = Tetrahedron.prototype.auto_flat_shaded_version( false );
@@ -173,8 +173,8 @@ Declare_Any_Class( "Example_Animation",  // An example of a displayable object t
         shapes_in_use.bad_tetrahedron.draw( graphics_state, model_transform, greyPlastic );
 
         model_transform = mult( model_transform, translation( 0, -2, 0 ) );
-        shapes_in_use.windmill       .draw( graphics_state, mult( model_transform, rotation( .7*graphics_state.animation_time, .1, .8, .1 ) ), purplePlastic );        
-        
+        shapes_in_use.windmill       .draw( graphics_state, mult( model_transform, rotation( .7*graphics_state.animation_time, .1, .8, .1 ) ), purplePlastic );
+
         shaders_in_use[ "Demo_Shader" ].activate();
         model_transform = mult( model_transform, translation( 0, -2, 0 ) );
         shapes_in_use.windmill       .draw( graphics_state, model_transform, placeHolder );
