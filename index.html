@@ -12,12 +12,13 @@ index.html - The web page document containing the canvas (drawing surface), that
 <!--NEW ADDITIONS-->
 <script type="text/javascript" src="js/template/surfaces-of-revolution.js"></script>
 <script type="text/javascript" src="js/template/subdivision-sphere.js"    ></script>
-<script type="text/javascript" src="surfaces-tester.js"                   ></script>
+<script type="text/javascript" src="js/template/surfaces-tester.js"       ></script>
 <script type="text/javascript" src="js/template/collision-scenes.js">     </script>
 
 <!--OUR GROUP'S ADDITIONS-->
 <script type="text/javascript" src="js/game/bee-scene.js"             ></script>
-<script type="text/javascript" src="js/game/FishScene.js"             ></script>
+<script type="text/javascript" src="js/game/fish-scene.js"            ></script>
+<script type="text/javascript" src="js/game/game-camera.js"           ></script>
 
 <script type="text/javascript"> "use strict"
   window.onload = function init()           // ********************* OUR WHOLE PROGRAM'S ENTRY POINT *********************
@@ -34,7 +35,7 @@ index.html - The web page document containing the canvas (drawing surface), that
 
       main_canvas.register_display_object( new Debug_Screen     ( main_canvas ) );  // We instantiate some of our custom "Animation" subclasses and register these displayable
       //main_canvas.register_display_object( new Example_Animation( main_canvas ) );  // objects to their master "Canvas_Manager" object -- which OpenGL calls upon every time a
-      main_canvas.register_display_object( new Example_Camera   ( main_canvas ) );  // draw / keyboard / mouse event happens.
+      main_canvas.register_display_object( new Game_Camera   ( main_canvas ) );  // draw / keyboard / mouse event happens.
 
       main_canvas.register_display_object( new Fish_Scene  ( main_canvas ) );
 
