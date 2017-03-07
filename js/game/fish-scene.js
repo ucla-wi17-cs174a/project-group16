@@ -13,7 +13,7 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
         shaders_in_use[ "Default" ].activate();
         this.graphics_state.lights = [ new Light( vec4(  3,  2,  1, 1 ), Color( 1, 0, 0, 1 ), 100000000 ),
                                        new Light( vec4( -1, -2, -3, 1 ), Color( 0, 1, 0, 1 ), 100000000 ) ];
-        var fish_body_yellow = new Material( Color(  1,  1, .3, 1 ), .2, 1, .7, 40, "fishScales.jpg" ),
+        var fish_body_yellow = new Material( Color(  1,  1, .3, 1 ), .2, 1, .7, 40, "img/fishScales.jpg" ),
             brown_clay  = new Material( Color( .5, .5, .3, 1 ), .2, 1,  1, 40 ),
             orange_clay  = new Material( Color( 1, 0.64, 0, 1 ), .2, 1,  1, 40 );
         

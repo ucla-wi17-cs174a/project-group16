@@ -112,7 +112,7 @@ Declare_Any_Class( "Text_Line", // Draws a rectangle textured with images of ASC
       },
     'draw': function( graphics_state, model_transform, heads_up_display, color )
       { if( heads_up_display )      { gl.disable( gl.DEPTH_TEST );  }
-        Shape.prototype.draw.call(this, graphics_state, model_transform, new Material( color, 1, 0, 0, 40, "text.png" ) );
+        Shape.prototype.draw.call(this, graphics_state, model_transform, new Material( color, 1, 0, 0, 40, "img/text.png" ) );
         if( heads_up_display )      { gl.enable(  gl.DEPTH_TEST );  }
       },
     'set_string': function( line )
