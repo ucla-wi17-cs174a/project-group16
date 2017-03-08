@@ -28,15 +28,6 @@ index.html - The web page document containing the canvas (drawing surface), that
       var main_canvas = new Canvas_Manager( "gl-canvas", Color( 0.0, 0.0, 0.0, 1 ) ),    // Make the master canvas manager.  Set your background color here too.
           g_state = main_canvas.shared_scratchpad.graphics_state;
 
-      var element = document.getElementById("gl-canvas");
-      
-      element.requestPointerLock = element.requestPointerLock ||
-    	element.mozRequestPointerLock ||
-    	element.webkitRequestPointerLock;
-
-      // Ask the browser to lock the pointer
-      element.requestPointerLock();
-
       shaders_in_use[ "Default"     ] = new Phong_or_Gouraud_Shader( g_state );    // Put all our shader programs in the GPU.
       shaders_in_use[ "Demo_Shader" ] = new Funny_Shader           ( g_state );
                                                                                 // IMPORTANT: -- You have to include all your new images in here:
