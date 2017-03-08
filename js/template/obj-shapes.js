@@ -27,7 +27,7 @@ Declare_Any_Class( "Shape_From_File",    // First, the simplest possible Shape â
               this.positions[i] = vec3(mult_vec(this.points_transform, vec4(this.positions[i], 1)));
               this.normals[i] = vec3(mult_vec(transpose(inverse(this.points_transform)), vec4(this.normals[i], 1)));
             }
-
+            Shape.prototype.copy_onto_graphics_card.call(this);
             this.ready = true;
 
           }
