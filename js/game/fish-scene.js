@@ -5,6 +5,8 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
         shapes_in_use[ "box"  ] = new Cube();
         shapes_in_use[ "body" ] = new Subdivision_Sphere( 4 );
         shapes_in_use[ "tail" ] = new Triangle(  ); // Triangle or Tetrahedron
+        shapes_in_use["fish"]    = new Shape_From_File( "model/Fish3.obj", scale( .1, .1, .1 ) );
+        ;
       },
     'display': function(time)
       {
@@ -33,17 +35,17 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
 
         stack = [];
         stack.push(model_transform);
-        model_transform = mult(model_transform, scale(2, 1, 1));
+        //model_transform = mult(model_transform, scale(2, 1, 1));
 
 
-        shapes_in_use.body.draw( this.graphics_state, model_transform, fish_body_yellow);
+        shapes_in_use.fish.draw( this.graphics_state, model_transform, fish_body_yellow);
         model_transform = stack[0];
         model_transform = mult(model_transform, translation(2, 0, 0));
         model_transform = mult(model_transform, rotation(2, 2, 1, 0));
         model_transform = mult(model_transform, rotation(-13, 0, 1, 2));
 
 
-        shapes_in_use.tail.draw( this.graphics_state, model_transform, orange_clay);
+        //shapes_in_use.tail.draw( this.graphics_state, model_transform, orange_clay);
         /*
         model_transform = bodyCenter;
         
