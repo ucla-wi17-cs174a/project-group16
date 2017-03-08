@@ -19,6 +19,7 @@ index.html - The web page document containing the canvas (drawing surface), that
 <script type="text/javascript" src="js/game/bee-scene.js"             ></script>
 <script type="text/javascript" src="js/game/fish-scene.js"            ></script>
 <script type="text/javascript" src="js/game/game-camera.js"           ></script>
+<script type="text/javascript" src="js/game/enemy.js"                 ></script>
 
 <script type="text/javascript"> "use strict"
   window.onload = function init()           // ********************* OUR WHOLE PROGRAM'S ENTRY POINT *********************
@@ -26,6 +27,15 @@ index.html - The web page document containing the canvas (drawing surface), that
                                                         // reference: http://www.colourlovers.com/color/1C6BA0/ocean_blue
       var main_canvas = new Canvas_Manager( "gl-canvas", Color( 0.0, 0.0, 0.0, 1 ) ),    // Make the master canvas manager.  Set your background color here too.
           g_state = main_canvas.shared_scratchpad.graphics_state;
+
+      var element = document.getElementById("gl-canvas");
+      
+      element.requestPointerLock = element.requestPointerLock ||
+    	element.mozRequestPointerLock ||
+    	element.webkitRequestPointerLock;
+
+      // Ask the browser to lock the pointer
+      element.requestPointerLock();
 
       shaders_in_use[ "Default"     ] = new Phong_or_Gouraud_Shader( g_state );    // Put all our shader programs in the GPU.
       shaders_in_use[ "Demo_Shader" ] = new Funny_Shader           ( g_state );
@@ -38,6 +48,7 @@ index.html - The web page document containing the canvas (drawing surface), that
       main_canvas.register_display_object( new Game_Camera   ( main_canvas ) );  // draw / keyboard / mouse event happens.
 
       main_canvas.register_display_object( new Fish_Scene  ( main_canvas ) );
+      main_canvas.register_display_object( new Enemy  ( main_canvas ) );
 
       //main_canvas.register_display_object( new Object_Collision_Scene( main_canvas ) );
 
@@ -56,7 +67,7 @@ index.html - The web page document containing the canvas (drawing surface), that
     })();
 </script>
 </head><body>
-<canvas id="gl-canvas" width="800" height="600"></canvas><p>
+<canvas id="gl-canvas" style="cursor: none; height: 100%; width: 100%; " width="1000" height="600"></canvas><p>
 <a href="#" onclick='document.getElementById( "instructions" ).style = "display:block"; this.style = "display:none";'> Click for instructions </a><div id="instructions" style = "display:none">
 Controlling this Graphics Object:
 <ul><li>Animation is paused when this program starts, so first you should press ALT+a to play or pause animation. <li>
