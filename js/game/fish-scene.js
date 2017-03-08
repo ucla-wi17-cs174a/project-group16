@@ -22,7 +22,7 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
         model_transform = mult( model_transform, inverse(this.graphics_state.camera_transform));
         model_transform = mult( model_transform, translation( 0, 0, -20 ) );
 
-        shapes_in_use.cube.draw( this.graphics_state, model_transform, purplePlastic );
+        //shapes_in_use.cube.draw( this.graphics_state, model_transform, purplePlastic );
 
 
 

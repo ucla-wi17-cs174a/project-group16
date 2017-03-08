@@ -1,7 +1,7 @@
 Declare_Any_Class( "Game_Camera",     // An example of a displayable object that our class Canvas_Manager can manage.  Adds both first-person and
   { 'construct': function( context )     // third-person style camera matrix controls to the canvas.
       { // 1st parameter below is our starting camera matrix.  2nd is the projection:  The matrix that determines how depth is treated.  It projects 3D points onto a plane.
-        context.shared_scratchpad.graphics_state = new Graphics_State( translation(0, 0,-25), perspective(80, canvas.width/canvas.height, .1, 1000), 0 );
+        context.shared_scratchpad.graphics_state = new Graphics_State( translation(0, 0,-25), perspective(50, canvas.width/canvas.height, .1, 1000), 0 );
         this.define_data_members( { graphics_state: context.shared_scratchpad.graphics_state, thrust: vec3(), origin: vec3( 0, 5, 0 ), looking: true } );
 
         this.shared_scratchpad = context.shared_scratchpad;
@@ -65,14 +65,10 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
         // First-person flyaround mode:  Determine camera rotation movement when the mouse is past a minimum distance (leeway) from the canvas's center.
         if(this.mouse.from_center[0] != 0 && this.mouse.from_center[1] != 0) {
 
-          var offset_plus  = [ this.mouse.from_center[0] , this.mouse.from_center[1]];
-          var offset_minus = [ this.mouse.from_center[0] , this.mouse.from_center[1]];
 
-          for( var i = 0; this.looking && i < 2; i++ )      // Steer according to "mouse_from_center" vector, but don't start increasing until outside a leeway window from the center.
-          {
-            var velocity = ( ( offset_minus[i] > 0 && offset_minus[i] ) || ( offset_plus[i] < 0 && offset_plus[i] ) ) * degrees_per_frame;  // Use movement's quantity unless the &&'s zero it out
-            this.graphics_state.camera_transform = mult( rotation( velocity, i, 1-i, 0 ), this.graphics_state.camera_transform );     // On X step, rotate around Y axis, and vice versa.
-          }
+          this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[0] * degrees_per_frame, 0, 1, 0 ), this.graphics_state.camera_transform );     // On X step, rotate around Y axis, and vice versa.
+          //this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.graphics_state.camera_transform );     // On X step, rotate around Y axis, and vice versa.
+
         }
 
         // Now apply translation movement of the camera, in the newest local coordinate frame
