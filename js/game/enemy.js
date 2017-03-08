@@ -38,12 +38,21 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
 
 
         if(spawn_progress > 1000 || spawn_progress == 0) {
-          model_transform = mult( model_transform, translation( -250, Math.floor(Math.random() * 100), Math.floor(Math.random() * 500) ) );
+
+          var sign = Math.floor(Math.random() * 2);
+
+          if(sign == 0) {
+            sign = 1;
+          } else {
+            sign = -1;
+          }
+
+          model_transform = mult( model_transform, translation( -250 * sign, Math.floor(Math.random() * 100), Math.floor(Math.random() * 500) ) );
 
           var size = Math.floor(Math.random() * 5 + 0.5);
           model_transform = mult( model_transform, scale( size , size, size ));
           enemies.push(model_transform);
-          enemies_speed.push(Math.random() * 0.01 + 0.01);
+          enemies_speed.push( (Math.random() * 0.01 + 0.01) * sign);
 
           shared_scratchpad.last_spawn = time;
         }
