@@ -63,7 +63,6 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
         */
 
         // First-person flyaround mode:  Determine camera rotation movement when the mouse is past a minimum distance (leeway) from the canvas's center.
-
         if(this.mouse.from_center[0] != 0 && this.mouse.from_center[1] != 0) {
 
           var offset_plus  = [ this.mouse.from_center[0] , this.mouse.from_center[1]];
