@@ -33,7 +33,7 @@ Declare_Any_Class( "Shape_From_File",    // First, the simplest possible Shape â
           var fcn = this.webGLStart;
 
           OBJ.downloadMeshes({
-            'mesh': filename
+            'mesh': filename 
           }, (function(self) {
             return fcn.bind(self)
           }(this)));/*(function(self) {
