@@ -35,9 +35,10 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
         //this.graphics_state.lights = [ new Light( vec4(  3,  2,  1, 1 ), Color( 1, 0, 0, 1 ), 100000000 ),
         //                               new Light( vec4( -1, -2, -3, 1 ), Color( 0, 1, 0, 1 ), 100000000 ) ];
 
-        var purplePlastic = new Material( Color( .9,.5,.9,1 ), .4, .4, .8, 40 );
+        var fish_material = new Material( Color( .4,.6,.5,1 ), .4, .4, .8, 40, "img/fishScales.jpg" );
 
 
+        // Spawn new fish
         if(spawn_progress > 500 || spawn_progress == 0) {
 
           var sign = Math.floor(Math.random() * 2);
@@ -48,28 +49,49 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
             sign = -1;
           }
 
-          model_transform = mult( model_transform, translation( -250 * sign, Math.floor(Math.random() * 100), Math.floor(Math.random() * 500) ) );
+          var x = -250 * sign;
+          var y = Math.floor(Math.random() * 100);
+          var z = Math.floor(Math.random() * 500);
+          var size = Math.floor(Math.random() * 20) * 0.2 + 0.5;
 
-          var size = Math.floor(Math.random() * 20 + 0.5);
+          model_transform = mult( model_transform, translation( x, y, z ) );
 
-          model_transform = mult( model_transform, scale( 0.2, 0.2, 0.2 ) );
           model_transform = mult( model_transform, scale( size , size, size ));
           model_transform = mult( model_transform, rotation( sign * 90, 0, 1, 0 ) );
 
-          enemies.push(model_transform);
-          enemies_speed.push( (Math.random() * 0.01 + 0.01));
+          enemies.push([ x , y , z , ( Math.random() * 0.01 + 0.01 ) * sign , size , sign ]);
 
           shared_scratchpad.last_spawn = time;
         }
 
-        // Update the cubes' degree offset
+        // Manage Fish
         for(var i = 0; i < enemies.length; i++) {
 
-          model_transform = mat4();
-          model_transform = mult(enemies[i], translation(0, 0 , progress * enemies_speed[i]));
-          shapes_in_use.fish.draw( graphics_state, model_transform, purplePlastic );
+          var x = enemies[i][0] + (progress * enemies[i][3]);
+          var y = enemies[i][1];
+          var z = enemies[i][2];
+          var size = enemies[i][4];
+          var sign = enemies[i][5]
 
-          enemies[i] = model_transform;
+          // Remove fish that are out of bounds
+          if(x  < -300 || x > 300) {
+            enemies.splice(i, 1);
+            i--;
+            continue;
+          }
+
+          // Detect collision
+          
+
+
+          model_transform = mat4();
+          model_transform = mult( model_transform, translation( x, y, z ) );
+          model_transform = mult( model_transform, scale( size , size, size ));
+          model_transform = mult( model_transform, rotation( sign * 90, 0, 1, 0 ) );
+
+          shapes_in_use.fish.draw( graphics_state, model_transform, fish_material );
+
+          enemies[i][0] = x;
         }
       }
   }, Animation );
