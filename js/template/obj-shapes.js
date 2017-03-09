@@ -19,12 +19,15 @@ Declare_Any_Class( "Shape_From_File",    // First, the simplest possible Shape â
             this.indices = meshes.mesh.indices;
             
             // Don't use this code. If you want to scale just use the model transform!
+            // I'll try to get this to work later
             /*
             for (var i = 0; i < this.positions.length; i++) // Apply points_transform to all points added during this call
             {
               this.positions[i] = vec3(mult_vec(this.points_transform, vec4(this.positions[i], 1)));
               this.normals[i] = vec3(mult_vec(transpose(inverse(this.points_transform)), vec4(this.normals[i], 1)));
             }*/
+
+
             Shape.prototype.copy_onto_graphics_card.call(this);
             this.ready = true;
 
