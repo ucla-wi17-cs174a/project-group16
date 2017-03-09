@@ -18,7 +18,7 @@ Declare_Any_Class( "Body",
     { if ( this == b ) return false;        // Nothing collides with itself
       var T = mult( a_inv, mult( b.location_matrix, scale( b.scale ) ) );  // Convert sphere b to a coordinate frame where a is a unit sphere
       for( let p of shape.positions )                                      // For each vertex in that b,
-      { var Tp = mult_vec( T, p.concat(1).slice(0,3) );                    // Apply a_inv*b coordinate frame shift
+      { var Tp = mult_vec( T, p.concat(1) ).slice(0,3);                    // Apply a_inv*b coordinate frame shift
         if( dot( Tp, Tp ) < 1.2 )   return true;     // Check if in that coordinate frame it penetrates the unit sphere at the origin.
       }
       return false;
