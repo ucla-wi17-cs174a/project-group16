@@ -2,8 +2,8 @@
 // http://web.cs.ucla.edu/~garett/collide/Custom_Shapes.js
 
 // *********** Shape From File ***********
-Declare_Any_Class( "Shape_From_File",    // First, the simplest possible Shape â€“ one triangle.  It has 3 vertices, each having their own 3D position, normal
-  { 'populate': function(filename, points_transform=[1,1,1])        // vector, and texture-space coordinate.
+Declare_Any_Class( "Shape_From_File",  
+  { 'populate': function(filename, points_transform=[1,1,1])        
       {
           this.filename = filename;     this.points_transform = points_transform;
            // Begin downloading the mesh, and once it completes return control to our webGLStart function
@@ -39,10 +39,7 @@ Declare_Any_Class( "Shape_From_File",    // First, the simplest possible Shape â
             'mesh': filename 
           }, (function(self) {
             return fcn.bind(self)
-          }(this)));/*(function(self) {
-            return fcn.bind(self)
-          }(this)));*/
-
+          }(this)));
       },                                    
       'draw': function( graphics_state, model_transform, material )
       { 
