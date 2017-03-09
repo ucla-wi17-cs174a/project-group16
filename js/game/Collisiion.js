@@ -1,28 +1,28 @@
-function momFruitsCollision()
+function momFishCollision()
 {
     if(!data.gameOver)
     {
-        for (var i = 0; i < fruit.num ; i++)
+        for (var i = 0; i < fish.num ; i++)
         {
-            if(fruit.alive[i])
+            if(fish.alive[i])
             {
                 //calculate length
-                var l = calLength2(fruit.x[i], fruit.y[i], mom.x, mom.y);//big eat
+                var l = calLength2(fish.x[i], fish.y[i], mom.x, mom.y);//big eat
                 if (l < 900)
                 {
                     //fruit eaten
-                    fruit.dead(i);
-                    data.fruitNum ++;
+                    fish.dead(i);
+                    data.fishNum ++;
                     mom.momBodyCount ++;
                     if(mom.momBodyCount > 7)
                     {
                         mom.momBodyCount = 7;
                     }
-                    if(fruit.fruitType[i] == "blue") //blue
+                    if(fish.fishType[i] == "blue") //blue
                     {
                         data.double =2;
                     }
-                    wave.born(fruit.x[i], fruit.y[i]);  //big fish eat and create a x y
+                    wave.born(fish.x[i], fish.y[i]);  //big fish eat and create a x y
                 }
             }
         }
@@ -33,19 +33,19 @@ function momFruitsCollision()
 
 function momBodyCollision()
 {
-    if(data.fruitNum > 0 && !data.gameOver)
+    if(data.fishNum > 0 && !data.gameOver)
     {
-        var l = calLength2(mom.x, mom.y, baby.x, baby.y);   //big fish eat small
+        var l = calLength2(mom.x, mom.y, enermy.x, enermy.y);   //big fish eat small
         if(l < 900)
         {
-            //baby recover
-            baby.babyBodyCount = 0;
+            //fish recover
+            enermy.babyBodyCount = 0;
             mom.momBodyCount = 0;
             //data.reset();
             data.addScore();
 
             //draw halo
-            halo.born(baby.x, baby.y);
+            halo.born(enermy.x, enermy.y);
 
 
         }
