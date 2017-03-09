@@ -10,6 +10,7 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
         this.shared_scratchpad.string_map.last_spawn = 0;
 
         shapes_in_use.strip = new Cube();
+        shapes_in_use.fish  = new Shape_From_File( "model/Fish3.obj", scale( 1, 1, 1 ) );
       },
     'display': function(time)
       {
@@ -37,7 +38,7 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
         var purplePlastic = new Material( Color( .9,.5,.9,1 ), .4, .4, .8, 40 );
 
 
-        if(spawn_progress > 1000 || spawn_progress == 0) {
+        if(spawn_progress > 500 || spawn_progress == 0) {
 
           var sign = Math.floor(Math.random() * 2);
 
@@ -49,10 +50,14 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
 
           model_transform = mult( model_transform, translation( -250 * sign, Math.floor(Math.random() * 100), Math.floor(Math.random() * 500) ) );
 
-          var size = Math.floor(Math.random() * 5 + 0.5);
+          var size = Math.floor(Math.random() * 20 + 0.5);
+
+          model_transform = mult( model_transform, scale( 0.2, 0.2, 0.2 ) );
           model_transform = mult( model_transform, scale( size , size, size ));
+          model_transform = mult( model_transform, rotation( sign * 90, 0, 1, 0 ) );
+
           enemies.push(model_transform);
-          enemies_speed.push( (Math.random() * 0.01 + 0.01) * sign);
+          enemies_speed.push( (Math.random() * 0.01 + 0.01));
 
           shared_scratchpad.last_spawn = time;
         }
@@ -61,8 +66,8 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
         for(var i = 0; i < enemies.length; i++) {
 
           model_transform = mat4();
-          model_transform = mult(enemies[i], translation(progress * enemies_speed[i], 0 , 0));
-          shapes_in_use.strip.draw( graphics_state, model_transform, purplePlastic );
+          model_transform = mult(enemies[i], translation(0, 0 , progress * enemies_speed[i]));
+          shapes_in_use.fish.draw( graphics_state, model_transform, purplePlastic );
 
           enemies[i] = model_transform;
         }
