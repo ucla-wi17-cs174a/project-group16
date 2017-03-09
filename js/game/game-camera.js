@@ -1,14 +1,29 @@
 Declare_Any_Class( "Game_Camera",     // An example of a displayable object that our class Canvas_Manager can manage.  Adds both first-person and
   { 'construct': function( context )     // third-person style camera matrix controls to the canvas.
       { // 1st parameter below is our starting camera matrix.  2nd is the projection:  The matrix that determines how depth is treated.  It projects 3D points onto a plane.
-        context.shared_scratchpad.graphics_state = new Graphics_State( translation(0, 0,-25), perspective(45, canvas.width/canvas.height, .1, 1000), 0 );
-        this.define_data_members( { graphics_state: context.shared_scratchpad.graphics_state, thrust: vec3(), origin: vec3( 0, 5, 0 ), looking: false } );
+        context.shared_scratchpad.graphics_state = new Graphics_State( translation(0, 0,-25), perspective(50, canvas.width/canvas.height, .1, 1000), 0 );
+        this.define_data_members( { graphics_state: context.shared_scratchpad.graphics_state, thrust: vec3(), origin: vec3( 0, 5, 0 ), looking: true } );
+
+        this.shared_scratchpad = context.shared_scratchpad;
+
+        this.shared_scratchpad.last_mouse_x = 0;
+        this.shared_scratchpad.last_mouse_y = 0;
+
+        var element = document.getElementById("gl-canvas");
+
+        element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
+        document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock;
+
+        // Ask the browser to lock the pointer
+        element.onclick = function() {
+          element.requestPointerLock();
+        };
 
         // *** Mouse controls: ***
         this.mouse = { "from_center": vec2() };
-        var mouse_position = function( e ) { return vec2( e.clientX - canvas.width/2, e.clientY - canvas.height/2 ); };   // Measure mouse steering, for rotating the flyaround camera.
-        canvas.addEventListener( "mouseup",   ( function(self) { return function(e) { e = e || window.event;    self.mouse.anchor = undefined;              } } ) (this), false );
-        canvas.addEventListener( "mousedown", ( function(self) { return function(e) { e = e || window.event;    self.mouse.anchor = mouse_position(e);      } } ) (this), false );
+        var mouse_position = function( e ) { return vec2( e.movementX, e.movementY ); };   // Measure mouse steering, for rotating the flyaround camera.
+        //canvas.addEventListener( "mouseup",   ( function(self) { return function(e) { e = e || window.event;    self.mouse.anchor = undefined;              } } ) (this), false );
+        //canvas.addEventListener( "mousedown", ( function(self) { return function(e) { e = e || window.event;    self.mouse.anchor = mouse_position(e);      } } ) (this), false );
         canvas.addEventListener( "mousemove", ( function(self) { return function(e) { e = e || window.event;    self.mouse.from_center = mouse_position(e); } } ) (this), false );
         canvas.addEventListener( "mouseout",  ( function(self) { return function(e) { self.mouse.from_center = vec2(); }; } ) (this), false );    // Stop steering if the mouse leaves the canvas.
       },
@@ -33,9 +48,9 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
         user_interface_string_manager.string_map["facing" ] = "Facing: "       + ( ( z_axis[0] > 0 ? "West " : "East ") + ( z_axis[1] > 0 ? "Down " : "Up " ) + ( z_axis[2] > 0 ? "North" : "South" ) );
       },
     'display': function( time )
-      { var leeway = 70,  degrees_per_frame = .0004 * this.graphics_state.animation_delta_time,
-                          meters_per_frame  =   .01 * this.graphics_state.animation_delta_time;
-        // Third-person camera mode: Is a mouse drag occurring?
+      { var leeway = 70,  degrees_per_frame = .004 * this.graphics_state.animation_delta_time,
+                          meters_per_frame  =   .02 * this.graphics_state.animation_delta_time;
+        /* Third-person camera mode: Is a mouse drag occurring?
         if( this.mouse.anchor )
         {
           var dragging_vector = subtract( this.mouse.from_center, this.mouse.anchor );            // Arcball camera: Spin the scene around the world origin on a user-determined axis.
@@ -45,15 +60,36 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
                 mult( rotation( .05 * length( dragging_vector ), dragging_vector[1], dragging_vector[0], 0 ),
                       translation(scale_vec( -1, this.origin ) ) ) ) );
         }
-        // First-person flyaround mode:  Determine camera rotation movement when the mouse is past a minimum distance (leeway) from the canvas's center.
-        var offset_plus  = [ this.mouse.from_center[0] + leeway, this.mouse.from_center[1] + leeway ];
-        var offset_minus = [ this.mouse.from_center[0] - leeway, this.mouse.from_center[1] - leeway ];
+        */
 
-        for( var i = 0; this.looking && i < 2; i++ )      // Steer according to "mouse_from_center" vector, but don't start increasing until outside a leeway window from the center.
-        {
-          var velocity = ( ( offset_minus[i] > 0 && offset_minus[i] ) || ( offset_plus[i] < 0 && offset_plus[i] ) ) * degrees_per_frame;  // Use movement's quantity unless the &&'s zero it out
-          this.graphics_state.camera_transform = mult( rotation( velocity, i, 1-i, 0 ), this.graphics_state.camera_transform );     // On X step, rotate around Y axis, and vice versa.
-        }     // Now apply translation movement of the camera, in the newest local coordinate frame
+        // First-person flyaround mode:  Determine camera rotation movement when the mouse is past a minimum distance (leeway) from the canvas's center.
+        if(this.mouse.from_center[0] != 0 && this.mouse.from_center[1] != 0) {
+
+
+          this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[0] * degrees_per_frame, 0, 1, 0 ), this.graphics_state.camera_transform );
+          //this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.graphics_state.camera_transform );
+
+          var x_vector = normalize( mult_vec(this.graphics_state.camera_transform, vec4(1,0,0,0) ) );
+          var y_vector = normalize( mult_vec(this.graphics_state.camera_transform, vec4(0,1,0,0) ) );
+
+          var t = x_vector[0] / y_vector[0];
+          var plane = x_vector - t * y_vector;
+
+          var thetaDot = dot(normalize(x_vector), normalize(y_vector));
+          var theta = Math.acos(thetaDot);
+
+          if(t < 0) {
+            theta = -theta;
+          }
+
+          //this.graphics_state.camera_transform = mult( rotation( theta * degrees_per_frame, 0, 0, 1 ), this.graphics_state.camera_transform );
+
+        }
+
+        // Now apply translation movement of the camera, in the newest local coordinate frame
         this.graphics_state.camera_transform = mult( translation( scale_vec( meters_per_frame, this.thrust ) ), this.graphics_state.camera_transform );
+
+        this.mouse.from_center[0] = 0;
+        this.mouse.from_center[1] = 0;
       }
   }, Animation );

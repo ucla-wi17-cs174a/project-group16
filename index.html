@@ -4,10 +4,14 @@ index.html - The web page document containing the canvas (drawing surface), that
 <html>
 <head>  <meta charset="UTF-8"/>
 <script type="text/javascript" src="js/template/MV.js"                    ></script>  <!--  Javascript "include" files.  Any code in them gets executed as part of the page loading.  //-->
+<script type="text/javascript" src="js/template/webgl-obj-loader.js"></script>
+
 <script type="text/javascript" src="js/template/tinywebgl-ucla.js"        ></script>
 <script type="text/javascript" src="js/template/example-displayables.js"  ></script>
 <script type="text/javascript" src="js/template/example-shapes.js"        ></script>
 <script type="text/javascript" src="js/template/example-shaders.js"       ></script>
+
+<script type="text/javascript" src="js/template/obj-shapes.js"></script>
 
 <!--NEW ADDITIONS-->
 <script type="text/javascript" src="js/template/surfaces-of-revolution.js"></script>
@@ -19,6 +23,8 @@ index.html - The web page document containing the canvas (drawing surface), that
 <script type="text/javascript" src="js/game/bee-scene.js"             ></script>
 <script type="text/javascript" src="js/game/fish-scene.js"            ></script>
 <script type="text/javascript" src="js/game/game-camera.js"           ></script>
+<script type="text/javascript" src="js/game/enemy.js"                 ></script>
+<script type="text/javascript" src="js/game/environment.js"           ></script>
 
 <script type="text/javascript"> "use strict"
   window.onload = function init()           // ********************* OUR WHOLE PROGRAM'S ENTRY POINT *********************
@@ -38,6 +44,10 @@ index.html - The web page document containing the canvas (drawing surface), that
       main_canvas.register_display_object( new Game_Camera   ( main_canvas ) );  // draw / keyboard / mouse event happens.
 
       main_canvas.register_display_object( new Fish_Scene  ( main_canvas ) );
+      main_canvas.register_display_object( new Enemy  ( main_canvas ) );
+      main_canvas.register_display_object( new Environment  ( main_canvas ) );
+
+      //main_canvas.register_display_object( new Ground_Collision_Scene  ( main_canvas ) );
 
       //main_canvas.register_display_object( new Object_Collision_Scene( main_canvas ) );
 
@@ -56,7 +66,7 @@ index.html - The web page document containing the canvas (drawing surface), that
     })();
 </script>
 </head><body>
-<canvas id="gl-canvas" width="800" height="600"></canvas><p>
+<canvas id="gl-canvas" style="cursor: none; height: 100%; width: 100%; " width="1000" height="600"></canvas><p>
 <a href="#" onclick='document.getElementById( "instructions" ).style = "display:block"; this.style = "display:none";'> Click for instructions </a><div id="instructions" style = "display:none">
 Controlling this Graphics Object:
 <ul><li>Animation is paused when this program starts, so first you should press ALT+a to play or pause animation. <li>
