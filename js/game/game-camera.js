@@ -67,7 +67,7 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
 
 
           this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[0] * degrees_per_frame, 0, 1, 0 ), this.graphics_state.camera_transform );
-          this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.graphics_state.camera_transform );
+          //this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.graphics_state.camera_transform );
 
           var x_vector = normalize( mult_vec(this.graphics_state.camera_transform, vec4(1,0,0,0) ) );
           var y_vector = normalize( mult_vec(this.graphics_state.camera_transform, vec4(0,1,0,0) ) );
@@ -82,7 +82,7 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
             theta = -theta;
           }
 
-          this.graphics_state.camera_transform = mult( rotation( theta * degrees_per_frame, 0, 0, 1 ), this.graphics_state.camera_transform );
+          //this.graphics_state.camera_transform = mult( rotation( theta * degrees_per_frame, 0, 0, 1 ), this.graphics_state.camera_transform );
 
         }
 
