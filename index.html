@@ -2,7 +2,26 @@
 index.html - The web page document containing the canvas (drawing surface), that launches your javascript files, and hides the vertex and fragment shader programs in some strings. //-->
 <!DOCTYPE html>
 <html>
-<head>  <meta charset="UTF-8"/>
+<head>  
+<style>
+scoreBoard {
+    color: white;
+    left: 40%;
+    line-height: 200px;
+    margin: auto;
+    margin-top: 5px;
+    position: absolute;
+    top: 8%;
+    width: 100%;
+    font-size: 40px;
+    font-family: Verdana, Arial;
+}
+</style>
+
+
+<meta charset="UTF-8"/>
+<!--<link href=http://getbootstrap.com/dist/css/bootstrap.min.css rel=stylesheet> -->
+
 <script type="text/javascript" src="js/template/MV.js"                    ></script>  <!--  Javascript "include" files.  Any code in them gets executed as part of the page loading.  //-->
 <script type="text/javascript" src="js/template/webgl-obj-loader.js"></script>
 
@@ -47,8 +66,9 @@ index.html - The web page document containing the canvas (drawing surface), that
       main_canvas.register_display_object( new Fish_Scene  ( main_canvas ) );
       main_canvas.register_display_object( new Enemy  ( main_canvas ) );
       main_canvas.register_display_object( new Environment  ( main_canvas ) );
-
+      updateScoreBoard();
       main_canvas.render();
+      
     }
 
   window.requestAnimFrame = ( function()						// Use the correct browser's version of requestAnimationFrame() when queue-ing up re-display events.
@@ -56,8 +76,17 @@ index.html - The web page document containing the canvas (drawing surface), that
       function( callback, element) { window.setTimeout(callback, 1000/60);  };
     })();
 </script>
+
+<script type="text/javascript">
+  var updateScoreBoard = function()
+  {
+    document.getElementById("scoreToUpdate").innerHTML = "<b>Current Score:</b> " + player_score + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fish Size: </b>" + player_size;
+  }
+
+</script>
 </head><body>
 
 <canvas id="gl-canvas" style="cursor: none; height: 100%; width: 100%; " width="1000" height="600"></canvas><p>
+<scoreBoard id="scoreToUpdate">Score!!</scoreBoard>
 
 </html>

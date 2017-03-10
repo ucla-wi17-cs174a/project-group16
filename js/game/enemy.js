@@ -107,6 +107,7 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
           }
 
           if(collided) {
+            updateScoreBoard();
             continue;
           }
 
