@@ -98,6 +98,7 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
                 var tmp = dot( Tp, Tp );            // Apply a_inv*b coordinate frame shift
                 if( tmp  < 45 ) {
                   enemies.splice(i, 1);
+                  player_score += 1;
                   i--;
                   collided = true;
                   break;
