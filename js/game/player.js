@@ -2,8 +2,7 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
   { 'construct': function( context )
       { this.graphics_state  = context.shared_scratchpad.graphics_state;
 
-        shapes_in_use["fish"]    = new Shape_From_File( "model/Fish3.obj", scale( .1, .1, .1 ) );
-        shapes_in_use.cube = new Cube();
+        shapes_in_use.fish    = new Shape_From_File( "model/Fish3.obj", scale( 1, 1, 1 ) );
       },
     'display': function(time)
       {
@@ -19,14 +18,12 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
 
         var purplePlastic = new Material( Color( .2,.5,.9,1 ), .4, .4, .8, 40 );
 
-
         model_transform = mult( model_transform, inverse(this.graphics_state.camera_transform));
-        model_transform = mult( model_transform, translation( 0, 0, -20 ) );
-
-        //shapes_in_use.cube.draw( this.graphics_state, model_transform, purplePlastic );
-
+        model_transform = mult( model_transform, translation( 0, -2, -20 ) );
+        model_transform = mult( model_transform, rotation( 180, 0, 1, 0 ) );
+        model_transform = mult( model_transform, scale( 0.2, 0.2, 0.2 ) );
 
         shapes_in_use.fish.draw( this.graphics_state, model_transform, fish_body_yellow);
- 
+
       }
   }, Animation );
