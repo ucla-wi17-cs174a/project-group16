@@ -59,7 +59,7 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
           model_transform = mult( model_transform, scale( size , size, size ));
           model_transform = mult( model_transform, rotation( sign * 90, 0, 1, 0 ) );
 
-          enemies.push([ model_transform , ( Math.random() * 0.001 + 0.005 ) , size , sign ]);
+          enemies.push([ model_transform , ( Math.random() * 0.001 + 0.005 ) , size , 0 ]);
 
           shared_scratchpad.last_spawn = time;
         }
@@ -67,13 +67,13 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
         // Manage Fish
         for(var i = 0; i < enemies.length ; i++) {
 
+          enemies[i][3] += progress * enemies[i][1];
+
           model_transform = mat4();
           model_transform = mult(enemies[i][0], translation(0, 0 , progress * enemies[i][1]));
 
-          var pos = mult_vec(model_transform, vec4(1,0,0,0));
-
           // Remove fish that are out of bounds
-          if(pos[0]  < -300 || pos[0] > 300) {
+          if(enemies[i][3]  < -200 || enemies[i][3] > 200) {
             enemies.splice(i, 1);
             i--;
             continue;
