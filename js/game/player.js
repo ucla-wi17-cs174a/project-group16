@@ -18,7 +18,12 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
         model_transform = mult( model_transform, inverse(this.graphics_state.camera_transform));
         model_transform = mult( model_transform, translation( 0, -2, -20 ) );
         model_transform = mult( model_transform, rotation( 180, 0, 1, 0 ) );
-        model_transform = mult( model_transform, scale( player_size, player_size, player_size) );
+        
+        if(player_size > 5) {
+          model_transform = mult( model_transform, scale( 5, 5, 5) );
+        } else {
+          model_transform = mult( model_transform, scale( player_size, player_size, player_size) );
+        }
 
         shapes_in_use.fish.draw( this.graphics_state, model_transform, fish_body_yellow);
       }

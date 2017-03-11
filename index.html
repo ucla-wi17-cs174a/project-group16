@@ -80,7 +80,7 @@ scoreBoard {
 <script type="text/javascript">
   var updateScoreBoard = function()
   {
-    document.getElementById("scoreToUpdate").innerHTML = "<b>Current Score:</b> " + player_score + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fish Size: </b>" + player_size;
+    document.getElementById("scoreToUpdate").innerHTML = "<b>Current Score:</b> " + player_score + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fish Size: </b>" + Math.ceil(player_size * 10) / 10;
   }
 
 </script>

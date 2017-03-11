@@ -97,9 +97,17 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
               for( let p of shape.positions ) {
                 var Tp = mult_vec( T, p.concat(1) ).slice(0,3);
                 var tmp = dot( Tp, Tp );            // Apply a_inv*b coordinate frame shift
-                if( tmp  < 1.2 ) { // change this to 1 or 1.2 if positions are normalized in obj-shapes.js
+                if( tmp  < player_size + 0.2) { // change this to 1 or 1.2 if positions are normalized in obj-shapes.js
+
+                  if(enemies[i][2] > player_size) {
+                    // Player dies
+                    player_size = 1;
+                  } else {
+                    player_score += 1;
+                    player_size += 0.1;
+                  }
+
                   enemies.splice(i, 1);
-                  player_score += 1;
                   i--;
                   collided = true;
                   break;
