@@ -27,7 +27,7 @@ Declare_Any_Class( "Shape_From_File",
               this.normals[i] = vec3(mult_vec(transpose(inverse(this.points_transform)), vec4(this.normals[i], 1)));
             }*/
 
-
+            this.normalize_positions();
             Shape.prototype.copy_onto_graphics_card.call(this);
             this.ready = true;
 
@@ -47,6 +47,13 @@ Declare_Any_Class( "Shape_From_File",
         {
           Shape.prototype.draw.call(this, graphics_state, model_transform, material);
         }
-      }
+      },
+      normalize_positions: function()
+  { var average_position = vec3(), average_length = 0;
+    for( var i = 0; i < this.positions.length; i++ ) average_position  =  add( average_position, scale_vec( 1/this.positions.length, this.positions[i] ) );
+    for( var i = 0; i < this.positions.length; i++ ) this.positions[i] =  subtract( this.positions[i], average_position );
+    for( var i = 0; i < this.positions.length; i++ ) average_length    += 1/this.positions.length * length( this.positions[i] );
+    for( var i = 0; i < this.positions.length; i++ ) this.positions[i] =  scale_vec( 1/average_length, this.positions[i] );
+  }
 
   }, Shape )
