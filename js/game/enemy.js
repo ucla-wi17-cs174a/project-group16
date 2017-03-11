@@ -34,7 +34,8 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
         var model_transform = mat4();
 
         shaders_in_use[ "Default" ].activate();
-
+        shaders_in_use[ "Bump Map" ].activate();
+        
         var fish_material = new Material( Color( .2,.6,.4,1 ), .3, .2, .8, 40, "img/fishScales.jpg" );
 
         // Spawn new fish

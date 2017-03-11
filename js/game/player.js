@@ -9,6 +9,8 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
       },
     'display': function(time)
       {
+        shaders_in_use[ "Bump Map" ].activate();
+        
         var model_transform = mat4();
 
         var fish_body_yellow = new Material( Color(  1,  1, .3, 1 ), .2, 1, .7, 40, "img/fishScales.jpg" );
