@@ -2,7 +2,7 @@
 index.html - The web page document containing the canvas (drawing surface), that launches your javascript files, and hides the vertex and fragment shader programs in some strings. //-->
 <!DOCTYPE html>
 <html>
-<head>
+<head>  
 <style>
 scoreBoard {
     color: white;
@@ -69,7 +69,7 @@ scoreBoard {
       main_canvas.register_display_object( new Environment  ( main_canvas ) );
       updateScoreBoard();
       main_canvas.render();
-
+      
     }
 
   window.requestAnimFrame = ( function()						// Use the correct browser's version of requestAnimationFrame() when queue-ing up re-display events.
@@ -81,13 +81,13 @@ scoreBoard {
 <script type="text/javascript">
   var updateScoreBoard = function()
   {
-    document.getElementById("scoreToUpdate").innerHTML = "<b>Score:</b> " + player_score + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fish Size: </b>" + player_size;
+    document.getElementById("scoreToUpdate").innerHTML = "<b>Current Score:</b> " + player_score + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fish Size: </b>" + player_size;
   }
 
 </script>
 </head><body>
 
 <canvas id="gl-canvas" style="cursor: none; height: 100%; width: 100%; " width="1000" height="600"></canvas><p>
-<scoreBoard id="scoreToUpdate" style="position: fixed; left: 30px; top:-65px; " >Score!!</scoreBoard>
+<scoreBoard id="scoreToUpdate">Score!!</scoreBoard>
 
 </html>
