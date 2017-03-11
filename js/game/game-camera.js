@@ -6,8 +6,9 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
 
         this.shared_scratchpad = context.shared_scratchpad;
 
-        this.shared_scratchpad.last_mouse_x = 0;
-        this.shared_scratchpad.last_mouse_y = 0;
+        this.shared_scratchpad.yaw = mat4();
+        this.shared_scratchpad.pitch = mat4();
+        this.shared_scratchpad.position = mat4();
 
         var element = document.getElementById("gl-canvas");
 
@@ -67,6 +68,10 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
         // First-person flyaround mode:  Determine camera rotation movement when the mouse is past a minimum distance (leeway) from the canvas's center.
         if(this.mouse.from_center[0] != 0 && this.mouse.from_center[1] != 0) {
 
+          this.shared_scratchpad.yaw = mult( rotation( this.mouse.from_center[0] * degrees_per_frame, 0, 1, 0 ), this.shared_scratchpad.yaw );
+          this.shared_scratchpad.pitch = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.shared_scratchpad.pitch );
+
+          /*
           this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[0] * degrees_per_frame, 0, 1, 0 ), this.graphics_state.camera_transform );
           this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.graphics_state.camera_transform );
 
@@ -84,10 +89,20 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
           }
 
           this.graphics_state.camera_transform = mult( rotation( theta, 0, 0, 1 ), this.graphics_state.camera_transform );
+          */
+
+
+
         }
 
+        this.shared_scratchpad.position = mult(mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw ), this.shared_scratchpad.position);
+
         // Now apply translation movement of the camera, in the newest local coordinate frame
-        this.graphics_state.camera_transform = mult( translation( scale_vec( meters_per_frame, this.thrust ) ), this.graphics_state.camera_transform );
+        this.shared_scratchpad.position = mult( translation( scale_vec( meters_per_frame, this.thrust ) ), this.shared_scratchpad.position );
+
+        this.shared_scratchpad.position = mult( inverse(mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw )),this.shared_scratchpad.position );
+        // All together now
+        this.graphics_state.camera_transform = mult( mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw ), this.shared_scratchpad.position);
 
         this.mouse.from_center[0] = 0;
         this.mouse.from_center[1] = 0;
