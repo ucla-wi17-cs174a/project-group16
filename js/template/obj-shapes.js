@@ -30,7 +30,7 @@ Declare_Any_Class( "Shape_From_File",
 
             // Uncomment this if you want to normalize positions
             // Then for collisions you would check for < 1 or < 1.2!
-            //this.normalize_positions();
+            this.normalize_positions();
             Shape.prototype.copy_onto_graphics_card.call(this);
             this.ready = true;
 
@@ -51,7 +51,7 @@ Declare_Any_Class( "Shape_From_File",
           Shape.prototype.draw.call(this, graphics_state, model_transform, material);
         }
       },
-      normalize_positions: function()
+      'normalize_positions': function()
   { var average_position = vec3(), average_length = 0;
     for( var i = 0; i < this.positions.length; i++ ) average_position  =  add( average_position, scale_vec( 1/this.positions.length, this.positions[i] ) );
     for( var i = 0; i < this.positions.length; i++ ) this.positions[i] =  subtract( this.positions[i], average_position );

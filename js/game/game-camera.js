@@ -67,7 +67,6 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
 
         // First-person flyaround mode:  Determine camera rotation movement when the mouse is past a minimum distance (leeway) from the canvas's center.
         if(this.mouse.from_center[0] != 0 && this.mouse.from_center[1] != 0) {
-
           this.shared_scratchpad.yaw = mult( rotation( this.mouse.from_center[0] * degrees_per_frame, 0, 1, 0 ), this.shared_scratchpad.yaw );
           this.shared_scratchpad.pitch = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.shared_scratchpad.pitch );
         }
@@ -77,8 +76,9 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
         // Now apply translation movement of the camera, in the newest local coordinate frame
         this.shared_scratchpad.position = mult( translation( scale_vec( meters_per_frame, this.thrust ) ), this.shared_scratchpad.position );
         this.shared_scratchpad.position = mult( inverse(mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw )),this.shared_scratchpad.position );
-        // All together now
         this.graphics_state.camera_transform = mult( mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw ), this.shared_scratchpad.position);
+
+        //this.graphics_state.camera_transform = mult(rotation(45,1,0,0), this.graphics_state.camera_transform );
 
         this.mouse.from_center[0] = 0;
         this.mouse.from_center[1] = 0;

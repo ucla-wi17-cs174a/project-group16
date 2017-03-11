@@ -13,7 +13,6 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
 
         shapes_in_use.strip = new Cube();
         shapes_in_use.fish  = new Shape_From_File( "model/Fish3.obj", scale( 1, 1, 1 ) );
-        
       },
     'display': function(time)
       {
@@ -98,7 +97,7 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
               for( let p of shape.positions ) {
                 var Tp = mult_vec( T, p.concat(1) ).slice(0,3);
                 var tmp = dot( Tp, Tp );            // Apply a_inv*b coordinate frame shift
-                if( tmp  < 45 ) { // change this to 1 or 1.2 if positions are normalized in obj-shapes.js
+                if( tmp  < 1.2 ) { // change this to 1 or 1.2 if positions are normalized in obj-shapes.js
                   enemies.splice(i, 1);
                   player_score += 1;
                   i--;

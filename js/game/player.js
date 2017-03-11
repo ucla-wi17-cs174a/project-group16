@@ -1,5 +1,5 @@
 var player_score = 0;
-var player_size = 0.2;
+var player_size = 1;
 
 Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our class Canvas_Manager can manage.  This one draws the scene's 3D shapes.
   { 'construct': function( context )
@@ -10,10 +10,10 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
     'display': function(time)
       {
         shaders_in_use[ "Bump Map" ].activate();
-        
+
         var model_transform = mat4();
 
-        var fish_body_yellow = new Material( Color(  1,  1, .3, 1 ), .2, 1, .7, 40, "img/fishScales.jpg" );
+        var fish_body_yellow = new Material( Color(  1,  1, .3, 1 ), .2, 1, .3, 10, "img/fishScales.jpg" );
 
         model_transform = mult( model_transform, inverse(this.graphics_state.camera_transform));
         model_transform = mult( model_transform, translation( 0, -2, -20 ) );
