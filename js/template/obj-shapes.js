@@ -27,7 +27,10 @@ Declare_Any_Class( "Shape_From_File",
               this.normals[i] = vec3(mult_vec(transpose(inverse(this.points_transform)), vec4(this.normals[i], 1)));
             }*/
 
-            this.normalize_positions();
+            
+            // Uncomment this if you want to normalize positions
+            // Then for collisions you would check for < 1 or < 1.2!
+            //this.normalize_positions();
             Shape.prototype.copy_onto_graphics_card.call(this);
             this.ready = true;
 
