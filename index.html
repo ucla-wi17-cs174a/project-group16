@@ -2,7 +2,7 @@
 index.html - The web page document containing the canvas (drawing surface), that launches your javascript files, and hides the vertex and fragment shader programs in some strings. //-->
 <!DOCTYPE html>
 <html>
-<head>  
+<head>
 <style>
 scoreBoard {
     color: white;
@@ -61,7 +61,6 @@ scoreBoard {
       for( var i = 0; i < texture_filenames_to_load.length; i++ ) textures_in_use[ texture_filenames_to_load[i] ] = ( new Texture( texture_filenames_to_load[i], false ) );
 
       main_canvas.register_display_object( new Debug_Screen     ( main_canvas ) );
-
       main_canvas.register_display_object( new Game_Camera   ( main_canvas ) );
 
       main_canvas.register_display_object( new Fish_Scene  ( main_canvas ) );
@@ -69,7 +68,7 @@ scoreBoard {
       main_canvas.register_display_object( new Environment  ( main_canvas ) );
       updateScoreBoard();
       main_canvas.render();
-      
+
     }
 
   window.requestAnimFrame = ( function()						// Use the correct browser's version of requestAnimationFrame() when queue-ing up re-display events.

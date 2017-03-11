@@ -53,17 +53,6 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
     'display': function( time )
       { var leeway = 70,  degrees_per_frame = .004 * this.graphics_state.animation_delta_time,
                           meters_per_frame  =   .02 * this.graphics_state.animation_delta_time;
-        /* Third-person camera mode: Is a mouse drag occurring?
-        if( this.mouse.anchor )
-        {
-          var dragging_vector = subtract( this.mouse.from_center, this.mouse.anchor );            // Arcball camera: Spin the scene around the world origin on a user-determined axis.
-          if( length( dragging_vector ) > 0 )
-            this.graphics_state.camera_transform = mult( this.graphics_state.camera_transform,    // Post-multiply so we rotate the scene instead of the camera.
-                mult( translation( this.origin ),
-                mult( rotation( .05 * length( dragging_vector ), dragging_vector[1], dragging_vector[0], 0 ),
-                      translation(scale_vec( -1, this.origin ) ) ) ) );
-        }
-        */
 
         // First-person flyaround mode:  Determine camera rotation movement when the mouse is past a minimum distance (leeway) from the canvas's center.
         if(this.mouse.from_center[0] != 0 && this.mouse.from_center[1] != 0) {
@@ -71,40 +60,15 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
           this.shared_scratchpad.yaw = mult( rotation( this.mouse.from_center[0] * degrees_per_frame, 0, 1, 0 ), this.shared_scratchpad.yaw );
           this.shared_scratchpad.pitch = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.shared_scratchpad.pitch );
 
-          /*
-          this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[0] * degrees_per_frame, 0, 1, 0 ), this.graphics_state.camera_transform );
-          this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.graphics_state.camera_transform );
+          this.shared_scratchpad.position = mult(mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw ), this.shared_scratchpad.position);
 
-          var x_vector = mult_vec(this.graphics_state.camera_transform, vec4(1,0,0,0) );
-          var y_vector = mult_vec(this.graphics_state.camera_transform, vec4(0,1,0,0) );
+          // Now apply translation movement of the camera, in the newest local coordinate frame
+          this.shared_scratchpad.position = mult( translation( scale_vec( meters_per_frame, this.thrust ) ), this.shared_scratchpad.position );
+          this.shared_scratchpad.position = mult( inverse(mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw )),this.shared_scratchpad.position );
+          // All together now
+          this.graphics_state.camera_transform = mult( mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw ), this.shared_scratchpad.position);
 
-          var t = x_vector[1] / y_vector[1];
-          var plane = subtract( x_vector, scale_vec(t, y_vector) );
-
-          var thetaDot = dot(normalize(x_vector), normalize(plane));
-          var theta = Math.acos(thetaDot);
-
-          if(t < 0) {
-            theta = -theta;
-          }
-
-          this.graphics_state.camera_transform = mult( rotation( theta, 0, 0, 1 ), this.graphics_state.camera_transform );
-          */
-
-
-
-        }
-
-        this.shared_scratchpad.position = mult(mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw ), this.shared_scratchpad.position);
-
-        // Now apply translation movement of the camera, in the newest local coordinate frame
-        this.shared_scratchpad.position = mult( translation( scale_vec( meters_per_frame, this.thrust ) ), this.shared_scratchpad.position );
-
-        this.shared_scratchpad.position = mult( inverse(mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw )),this.shared_scratchpad.position );
-        // All together now
-        this.graphics_state.camera_transform = mult( mult( this.shared_scratchpad.pitch, this.shared_scratchpad.yaw ), this.shared_scratchpad.position);
-
-        this.mouse.from_center[0] = 0;
-        this.mouse.from_center[1] = 0;
+          this.mouse.from_center[0] = 0;
+          this.mouse.from_center[1] = 0;
       }
   }, Animation );
