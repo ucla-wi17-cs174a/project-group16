@@ -178,3 +178,49 @@ Declare_Any_Class( "Funny_Shader",                    // This one borrows almost
           }`;
       }
   }, Phong_or_Gouraud_Shader );
+
+
+
+Declare_Any_Class( "Fake_Bump_Mapping",                    
+  { 'fragment_glsl_code_string': function()           // ********* FRAGMENT SHADER *********
+      { return `
+          precision mediump float;                          //  Like real bump mapping, but with no separate file for the bump map
+                                                            // (instead we'll re-use the colors of the original picture file to
+          const int N_LIGHTS = 2;                           // disturb the normal vectors)
+
+          uniform vec4 lightColor[N_LIGHTS], shapeColor;
+          varying vec3 L[N_LIGHTS], H[N_LIGHTS];
+          varying float dist[N_LIGHTS];
+          varying vec4 VERTEX_COLOR;
+
+          uniform float ambient, diffusivity, shininess, smoothness, animation_time, attenuation_factor[N_LIGHTS];
+
+          varying vec2 fTexCoord;   // per-fragment interpolated values from the vertex shader
+          varying vec3 N, E, pos;
+
+          uniform sampler2D texture;
+          uniform bool GOURAUD, COLOR_NORMALS, COLOR_VERTICES, USE_TEXTURE;
+
+          void main()
+          {
+            if( GOURAUD || COLOR_NORMALS )    // Bypass phong lighting if we're only interpolating predefined colors across vertices
+            {
+              gl_FragColor = VERTEX_COLOR;
+              return;
+            }
+
+            vec4 tex_color = texture2D( texture, fTexCoord );
+            vec3 bumped_N  = normalize( N + tex_color.rgb - .5*vec3(1,1,1) );
+            gl_FragColor = tex_color * ( USE_TEXTURE ? ambient : 0.0 ) + vec4( shapeColor.xyz * ambient, USE_TEXTURE ? shapeColor.w * tex_color.w : shapeColor.w ) ;
+            for( int i = 0; i < N_LIGHTS; i++ )
+            {
+              float attenuation_multiplier = 1.0 / (1.0 + attenuation_factor[i] * (dist[i] * dist[i]));
+              float diffuse  =      max(dot(bumped_N, L[i]), 0.0);
+              float specular = pow( max(dot(bumped_N, H[i]), 0.0), smoothness );
+
+              gl_FragColor.xyz += attenuation_multiplier * (shapeColor.xyz * diffusivity * diffuse  + lightColor[i].xyz * shininess * specular );
+            }
+            gl_FragColor.a = gl_FragColor.w;
+          }`;
+      }
+  }, Phong_or_Gouraud_Shader );

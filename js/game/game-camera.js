@@ -1,7 +1,7 @@
 Declare_Any_Class( "Game_Camera",     // An example of a displayable object that our class Canvas_Manager can manage.  Adds both first-person and
   { 'construct': function( context )     // third-person style camera matrix controls to the canvas.
       { // 1st parameter below is our starting camera matrix.  2nd is the projection:  The matrix that determines how depth is treated.  It projects 3D points onto a plane.
-        context.shared_scratchpad.graphics_state = new Graphics_State( translation(0, 0,-25), perspective(50, canvas.width/canvas.height, .1, 1000), 0 );
+        context.shared_scratchpad.graphics_state = new Graphics_State( translation(0, 0,-25), perspective(80, canvas.width/canvas.height, .1, 1000), 0 );
         this.define_data_members( { graphics_state: context.shared_scratchpad.graphics_state, thrust: vec3(), origin: vec3( 0, 5, 0 ), looking: true } );
 
         this.shared_scratchpad = context.shared_scratchpad;
@@ -28,12 +28,14 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
         canvas.addEventListener( "mouseout",  ( function(self) { return function(e) { self.mouse.from_center = vec2(); }; } ) (this), false );    // Stop steering if the mouse leaves the canvas.
       },
     'init_keys': function( controls )   // init_keys():  Define any extra keyboard shortcuts here
-      { controls.add( "Space", this, function() { this.thrust[1] = -1; } );     controls.add( "Space", this, function() { this.thrust[1] =  0; }, {'type':'keyup'} );
-        controls.add( "z",     this, function() { this.thrust[1] =  1; } );     controls.add( "z",     this, function() { this.thrust[1] =  0; }, {'type':'keyup'} );
-        controls.add( "w",     this, function() { this.thrust[2] =  1; } );     controls.add( "w",     this, function() { this.thrust[2] =  0; }, {'type':'keyup'} );
-        controls.add( "a",     this, function() { this.thrust[0] =  1; } );     controls.add( "a",     this, function() { this.thrust[0] =  0; }, {'type':'keyup'} );
-        controls.add( "s",     this, function() { this.thrust[2] = -1; } );     controls.add( "s",     this, function() { this.thrust[2] =  0; }, {'type':'keyup'} );
-        controls.add( "d",     this, function() { this.thrust[0] = -1; } );     controls.add( "d",     this, function() { this.thrust[0] =  0; }, {'type':'keyup'} );
+      {
+        var speed = 3;
+        controls.add( "Space", this, function() { this.thrust[1] = -speed; } );     controls.add( "Space", this, function() { this.thrust[1] =  0; }, {'type':'keyup'} );
+        controls.add( "z",     this, function() { this.thrust[1] =  speed; } );     controls.add( "z",     this, function() { this.thrust[1] =  0; }, {'type':'keyup'} );
+        controls.add( "w",     this, function() { this.thrust[2] =  speed; } );     controls.add( "w",     this, function() { this.thrust[2] =  0; }, {'type':'keyup'} );
+        controls.add( "a",     this, function() { this.thrust[0] =  speed; } );     controls.add( "a",     this, function() { this.thrust[0] =  0; }, {'type':'keyup'} );
+        controls.add( "s",     this, function() { this.thrust[2] = -speed; } );     controls.add( "s",     this, function() { this.thrust[2] =  0; }, {'type':'keyup'} );
+        controls.add( "d",     this, function() { this.thrust[0] = -speed; } );     controls.add( "d",     this, function() { this.thrust[0] =  0; }, {'type':'keyup'} );
         controls.add( "f",     this, function() { this.looking  ^=  1; } );
         controls.add( ",",     this, function() { this.graphics_state.camera_transform = mult( rotation( 6, 0, 0,  1 ), this.graphics_state.camera_transform ); } );
         controls.add( ".",     this, function() { this.graphics_state.camera_transform = mult( rotation( 6, 0, 0, -1 ), this.graphics_state.camera_transform ); } );
@@ -65,25 +67,23 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
         // First-person flyaround mode:  Determine camera rotation movement when the mouse is past a minimum distance (leeway) from the canvas's center.
         if(this.mouse.from_center[0] != 0 && this.mouse.from_center[1] != 0) {
 
-
           this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[0] * degrees_per_frame, 0, 1, 0 ), this.graphics_state.camera_transform );
           this.graphics_state.camera_transform = mult( rotation( this.mouse.from_center[1] * degrees_per_frame, 1, 0, 0 ), this.graphics_state.camera_transform );
 
-          var x_vector = normalize( mult_vec(this.graphics_state.camera_transform, vec4(1,0,0,0) ) );
-          var y_vector = normalize( mult_vec(this.graphics_state.camera_transform, vec4(0,1,0,0) ) );
+          var x_vector = mult_vec(this.graphics_state.camera_transform, vec4(1,0,0,0) );
+          var y_vector = mult_vec(this.graphics_state.camera_transform, vec4(0,1,0,0) );
 
-          var t = x_vector[0] / y_vector[0];
-          var plane = x_vector - t * y_vector;
+          var t = x_vector[1] / y_vector[1];
+          var plane = subtract( x_vector, scale_vec(t, y_vector) );
 
-          var thetaDot = dot(normalize(x_vector), normalize(y_vector));
+          var thetaDot = dot(normalize(x_vector), normalize(plane));
           var theta = Math.acos(thetaDot);
 
           if(t < 0) {
             theta = -theta;
           }
 
-          this.graphics_state.camera_transform = mult( rotation( theta * degrees_per_frame, 0, 0, 1 ), this.graphics_state.camera_transform );
-
+          this.graphics_state.camera_transform = mult( rotation( theta, 0, 0, 1 ), this.graphics_state.camera_transform );
         }
 
         // Now apply translation movement of the camera, in the newest local coordinate frame
