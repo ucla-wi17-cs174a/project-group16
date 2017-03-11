@@ -2,8 +2,8 @@
 // http://web.cs.ucla.edu/~garett/collide/Custom_Shapes.js
 
 // *********** Shape From File ***********
-Declare_Any_Class( "Shape_From_File",  
-  { 'populate': function(filename, points_transform=[1,1,1])        
+Declare_Any_Class( "Shape_From_File",
+  { 'populate': function(filename, points_transform=[1,1,1])
       {
           this.filename = filename;     this.points_transform = points_transform;
            // Begin downloading the mesh, and once it completes return control to our webGLStart function
@@ -17,7 +17,7 @@ Declare_Any_Class( "Shape_From_File",
               this.texture_coords.push(vec2(meshes.mesh.textures[2 * j], meshes.mesh.textures[2 * j + 1]));
             }
             this.indices = meshes.mesh.indices;
-            
+
             // Don't use this code. If you want to scale just use the model transform!
             // I'll try to get this to work later
             /*
@@ -27,7 +27,7 @@ Declare_Any_Class( "Shape_From_File",
               this.normals[i] = vec3(mult_vec(transpose(inverse(this.points_transform)), vec4(this.normals[i], 1)));
             }*/
 
-            
+
             // Uncomment this if you want to normalize positions
             // Then for collisions you would check for < 1 or < 1.2!
             //this.normalize_positions();
@@ -39,13 +39,13 @@ Declare_Any_Class( "Shape_From_File",
           var fcn = this.webGLStart;
 
           OBJ.downloadMeshes({
-            'mesh': filename 
+            'mesh': filename
           }, (function(self) {
             return fcn.bind(self)
           }(this)));
-      },                                    
+      },
       'draw': function( graphics_state, model_transform, material )
-      { 
+      {
         if( this.ready )
         {
           Shape.prototype.draw.call(this, graphics_state, model_transform, material);

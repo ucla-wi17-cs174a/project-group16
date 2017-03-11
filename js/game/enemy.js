@@ -13,6 +13,7 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
 
         shapes_in_use.strip = new Cube();
         shapes_in_use.fish  = new Shape_From_File( "model/Fish3.obj", scale( 1, 1, 1 ) );
+        
       },
     'display': function(time)
       {
@@ -35,7 +36,7 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
 
         shaders_in_use[ "Default" ].activate();
         shaders_in_use[ "Bump Map" ].activate();
-        
+
         var fish_material = new Material( Color( .2,.6,.4,1 ), .3, .2, .8, 40, "img/fishScales.jpg" );
 
         // Spawn new fish
