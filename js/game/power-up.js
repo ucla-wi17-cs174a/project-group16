@@ -108,7 +108,7 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
                     }
                   } else if(power_ups[i][4] == SPD) {
                     player_power = [ SPD, 20000 ];
-                    setPlayerSpeed(10);
+                    player_speed = .05;
                   }
 
                   power_ups.splice(i, 1);
@@ -138,7 +138,7 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
 
           if(player_power[1] < 0) {
             player_power = [];
-            setPlayerSpeed(5);
+            player_speed = 0.02;
           }
         }
 

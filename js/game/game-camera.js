@@ -1,10 +1,4 @@
-var player_speed = 5;
-
-function setPlayerSpeed( s ) {
-  player_speed = s;
-  //main_canvas.update_keys(game_cam);
-}
-
+var player_speed = 0.02
 
 Declare_Any_Class( "Game_Camera",     // An example of a displayable object that our class Canvas_Manager can manage.  Adds both first-person and
   { 'construct': function( context )     // third-person style camera matrix controls to the canvas.
@@ -38,7 +32,7 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
       },
     'init_keys': function( controls )   // init_keys():  Define any extra keyboard shortcuts here
       {
-        var speed = player_speed;
+        var speed = 5;
         controls.add( "Space", this, function() { this.thrust[1] = -speed; } );     controls.add( "Space", this, function() { this.thrust[1] =  0; }, {'type':'keyup'} );
         controls.add( "z",     this, function() { this.thrust[1] =  speed; } );     controls.add( "z",     this, function() { this.thrust[1] =  0; }, {'type':'keyup'} );
         controls.add( "w",     this, function() { this.thrust[2] =  speed; } );     controls.add( "w",     this, function() { this.thrust[2] =  0; }, {'type':'keyup'} );
@@ -60,7 +54,7 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
       },
     'display': function( time )
       { var leeway = 70,  degrees_per_frame = .004 * this.graphics_state.animation_delta_time,
-                          meters_per_frame  =   .02 * this.graphics_state.animation_delta_time;
+                          meters_per_frame  =   player_speed * this.graphics_state.animation_delta_time;
         /* Third-person camera mode: Is a mouse drag occurring?
         if( this.mouse.anchor )
         {
