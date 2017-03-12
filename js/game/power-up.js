@@ -12,12 +12,16 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
         this.shared_scratchpad.string_map.power_ups_last_time = 0;
         this.shared_scratchpad.string_map.power_ups_last_spawn = 0;
 
-        shapes_in_use.cube = new Cube();
+        shapes_in_use.cube = new Subdivision_Sphere(3);
       },
     'display': function(time)
       {
+
         var graphics_state  = this.graphics_state;
         var shared_scratchpad = this.shared_scratchpad.string_map;
+
+        shaders_in_use[ "Cool_Ball" ].activate();
+        graphics_state.cool_ball = true;
 
         var power_ups = shared_scratchpad.power_ups;
 
@@ -31,8 +35,6 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
         if (time != null) shared_scratchpad.power_ups_last_time = time;
 
         var model_transform = mat4();
-
-        shaders_in_use[ "Default" ].activate();
 
         var invincibility = new Material( Color( 1,.2,.1,1 ), .3, .2, .8, 40 );
         var speed = new Material( Color(.2,1,.2, 1), .3, .2, .8, 40);
@@ -130,6 +132,8 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
             shapes_in_use.cube.draw( graphics_state, model_transform, speed );
           }
 
+          //graphics_state.cool_ball = false;
+
           power_ups[i][0] = model_transform;
         }
 
@@ -141,6 +145,8 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
             player_speed = 0.02;
           }
         }
+
+        graphics_state.cool_ball = false;
 
       }
   }, Animation );

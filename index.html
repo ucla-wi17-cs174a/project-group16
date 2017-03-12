@@ -59,6 +59,7 @@ scoreBoard {
       shaders_in_use[ "Default"     ] = new Phong_or_Gouraud_Shader( g_state );
       shaders_in_use[ "Demo_Shader" ] = new Funny_Shader           ( g_state );
       shaders_in_use[ "Bump Map"    ] = new Fake_Bump_Mapping      ( g_state );
+      shaders_in_use[ "Cool_Ball"   ] = new Cool_Ball              ( g_state ); 
 
       texture_filenames_to_load.push( "img/text.png", "img/stars.png", "img/earth.gif", "img/fishScales.jpg");
       for( var i = 0; i < texture_filenames_to_load.length; i++ ) textures_in_use[ texture_filenames_to_load[i] ] = ( new Texture( texture_filenames_to_load[i], false ) );
