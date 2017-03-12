@@ -14,6 +14,7 @@ var updateScoreBoard = function() {
   // can make this number lower if it is too hard
   {
     //play munching noise (success)
+    audio_eating.play();
     audio_success.play();
   } else if (firstTime == false && player_size > 1) // player scored
   {
