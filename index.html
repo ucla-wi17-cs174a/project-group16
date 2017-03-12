@@ -16,6 +16,8 @@ scoreBoard {
     font-size: 40px;
     font-family: Verdana, Arial;
 }
+
+
 </style>
 
 
@@ -66,9 +68,9 @@ scoreBoard {
       game_cam =  new Game_Camera   ( main_canvas );
       main_canvas.register_display_object( game_cam);
 
+      main_canvas.register_display_object( new Environment  ( main_canvas ) );
       main_canvas.register_display_object( new Fish_Scene  ( main_canvas ) );
       main_canvas.register_display_object( new Enemy  ( main_canvas ) );
-      main_canvas.register_display_object( new Environment  ( main_canvas ) );
       main_canvas.register_display_object( new Power_Up  ( main_canvas ) );
 
       updateScoreBoard();
@@ -83,9 +85,36 @@ scoreBoard {
 </script>
 
 <script type="text/javascript">
+  var audio_bubbles_s = new Audio('audio/Bubbles_Shorter.mp3');
+  var audio_bubbles = new Audio('audio/Fishtank_Bubbles.mp3');
+  var audio_eating = new Audio('audio/Eating.mp3');
+  var audio_munch = new Audio('audio/Cartoon_Munch.mp3');
+  var audio_success = new Audio('audio/HighScore.wav');
+  var audio_grow = new Audio('audio/smw_power-up.wav');
+  var firstTime = true;
+
   var updateScoreBoard = function()
   {
+    if(firstTime == false && player_size  == 1)
+    {
+      //play munching noise (lose)
+      audio_munch.play();
+    }
+    else if (firstTime == false && player_score > 25) // player scored above 25!
+              // can make this number lower if it is too hard
+    {
+      //play munching noise (success)
+      audio_success.play();
+    }
+    else if (firstTime == false && player_size > 1) // player scored
+    {
+      //play munching noise (success)
+      audio_eating.play();
+      audio_grow.play();
+    }
+
     document.getElementById("scoreToUpdate").innerHTML = "<b>Current Score:</b> " + player_score + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fish Size: </b>" + Math.ceil(player_size * 10) / 10;
+    if(firstTime == true)firstTime = false; // at start of game
   }
 
 </script>
@@ -93,5 +122,6 @@ scoreBoard {
 
 <canvas id="gl-canvas" style="cursor: none; height: 100%; width: 100%; " width="1000" height="600"></canvas><p>
 <scoreBoard id="scoreToUpdate"  style="position: fixed; left: 30px; top:-65px;">Score!!</scoreBoard>
+<c id="gameStatus"  style="position: fixed; right: 30px; top:-65px;">Status!!</c>
 
 </html>
