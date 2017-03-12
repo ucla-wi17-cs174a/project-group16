@@ -38,6 +38,9 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
 
         var fish_material = new Material( Color( .2,.6,.4,1 ), .3, .2, .8, 40, "img/fishScales.jpg" );
 
+        if(main_menu)
+          return;
+
         // Spawn new fish
         if( enemies.length < 100 && (spawn_progress > 500 || spawn_progress == 0) ) {
 

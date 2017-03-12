@@ -1,6 +1,7 @@
 var player_score = 0;
 var player_size = 1;
 
+
 Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our class Canvas_Manager can manage.  This one draws the scene's 3D shapes.
   { 'construct': function( context )
       { this.graphics_state  = context.shared_scratchpad.graphics_state;
@@ -18,7 +19,7 @@ Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our
         model_transform = mult( model_transform, inverse(this.graphics_state.camera_transform));
         model_transform = mult( model_transform, translation( 0, -2, -20 ) );
         model_transform = mult( model_transform, rotation( 180, 0, 1, 0 ) );
-        
+
         if(player_size > 5) {
           model_transform = mult( model_transform, scale( 5, 5, 5) );
         } else {
