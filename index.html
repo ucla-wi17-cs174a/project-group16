@@ -96,14 +96,10 @@ scoreBoard {
 
   var updateScoreBoard = function()
   {
-    if(firstTime == false && player_power.length != 0) {
-
-      if(player_power[0] == INV ||  player_power[0] == SPD)
-          {
-
-              audio_grow.play();
-
-        }
+    if(firstTime == false && player_power.length != 0 && 
+      (player_power[0] == INV ||  player_power[0] == SPD))
+    {
+      audio_grow.play();
     }
     else if(firstTime == false && player_size  == 1)
     {
