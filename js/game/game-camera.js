@@ -39,7 +39,7 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
         controls.add( "a",     this, function() { this.thrust[0] =  speed; } );     controls.add( "a",     this, function() { this.thrust[0] =  0; }, {'type':'keyup'} );
         controls.add( "s",     this, function() { this.thrust[2] = -speed; } );     controls.add( "s",     this, function() { this.thrust[2] =  0; }, {'type':'keyup'} );
         controls.add( "d",     this, function() { this.thrust[0] = -speed; } );     controls.add( "d",     this, function() { this.thrust[0] =  0; }, {'type':'keyup'} );
-        controls.add( "f",     this, function() { this.looking  ^=  1; } );
+        controls.add( "f",     this, function() { this.looking  ^=  1;} );
         controls.add( ",",     this, function() { this.graphics_state.camera_transform = mult( rotation( 6, 0, 0,  1 ), this.graphics_state.camera_transform ); } );
         controls.add( ".",     this, function() { this.graphics_state.camera_transform = mult( rotation( 6, 0, 0, -1 ), this.graphics_state.camera_transform ); } );
         controls.add( "o",     this, function() { this.origin = mult_vec( inverse( this.graphics_state.camera_transform ), vec4(0,0,0,1) ).slice(0,3)         ; } );
