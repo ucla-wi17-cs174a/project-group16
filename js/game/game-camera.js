@@ -55,17 +55,9 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
     'display': function( time )
       { var leeway = 70,  degrees_per_frame = .004 * this.graphics_state.animation_delta_time,
                           meters_per_frame  =   player_speed * this.graphics_state.animation_delta_time;
-        /* Third-person camera mode: Is a mouse drag occurring?
-        if( this.mouse.anchor )
-        {
-          var dragging_vector = subtract( this.mouse.from_center, this.mouse.anchor );            // Arcball camera: Spin the scene around the world origin on a user-determined axis.
-          if( length( dragging_vector ) > 0 )
-            this.graphics_state.camera_transform = mult( this.graphics_state.camera_transform,    // Post-multiply so we rotate the scene instead of the camera.
-                mult( translation( this.origin ),
-                mult( rotation( .05 * length( dragging_vector ), dragging_vector[1], dragging_vector[0], 0 ),
-                      translation(scale_vec( -1, this.origin ) ) ) ) );
-        }
-        */
+
+        if(main_menu)
+          meters_per_frame = 0;
 
         // First-person flyaround mode:  Determine camera rotation movement when the mouse is past a minimum distance (leeway) from the canvas's center.
         if(this.mouse.from_center[0] != 0 && this.mouse.from_center[1] != 0) {

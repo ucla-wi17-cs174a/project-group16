@@ -27,17 +27,15 @@ Declare_Any_Class( "Environment",
         var sign = new Material( Color( 0,0,0,1 ), .7, .4, .4, 40, "img/press2.png" );
 
         // Front wall
-        model_transform = mult( model_transform, translation( 0, 0, -200 ) );
+        model_transform = mult( model_transform, translation( 0, 0, -150 ) );
         model_transform = mult( model_transform, scale( 250,125,10 ) );
         shapes_in_use.square.draw( this.graphics_state, model_transform, hello );
 
         // Back wall
-        model_transform = mult( model_transform, translation( 0, 0, 50 ) );
+        model_transform = mat4();
+        model_transform = mult( model_transform, scale( 250,125,10 ) );
+        model_transform = mult( model_transform, translation( 0, 0, 25 ) );
         shapes_in_use.square.draw( this.graphics_state, model_transform, color );
-
-        model_transform = mult( model_transform, translation( 0, 0, -100 ) );
-        model_transform = mult( model_transform, rotation( 90, 0, 0, 0 ) );
-        //shapes_in_use.square.draw( this.graphics_state, model_transform, hello );
 
         // Bottom
         model_transform = mat4();

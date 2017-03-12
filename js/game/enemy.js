@@ -53,9 +53,15 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
           }
 
           var x = -250 * sign;
-          var y = Math.floor(Math.random() * 100);
-          var z = Math.floor(Math.random() * 500);
-          var size = Math.floor(Math.random() * 20) * 0.2 + 0.5;
+          var y = Math.floor(Math.random() * 75 + 30);
+          var z = Math.floor(Math.random() * 350 + 100);
+          var size = Math.random() * (10 + 3 * player_size) - 6;
+
+          if(size < 0) {
+            size = Math.random() * player_size;
+          } else if(size > 30) {
+            size == 30;
+          }
 
           model_transform = mult( model_transform, translation( x, y, z ) );
           model_transform = mult( model_transform, translation( 0, -50, -200 ) );
@@ -100,13 +106,13 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
               for( let p of shape.positions ) {
                 var Tp = mult_vec( T, p.concat(1) ).slice(0,3);
                 var tmp = dot( Tp, Tp );            // Apply a_inv*b coordinate frame shift
-                if( tmp  < player_size + 0.2) { // change this to 1 or 1.2 if positions are normalized in obj-shapes.js
+                if( tmp  < 2 * player_size + 0.2) { // change this to 1 or 1.2 if positions are normalized in obj-shapes.js
 
                   if(enemies[i][2] > player_size && !(player_power.length != 0 && player_power[0] == INV) ) {
                     // Player dies
                     player_size = 1;
                   } else {
-                    player_score += 1;
+                    player_score += Math.ceil(enemies[i][2]);
                     player_size += 0.1;
                   }
 

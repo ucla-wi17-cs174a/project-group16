@@ -4,6 +4,8 @@ var audio_eating = new Audio('audio/Eating.mp3');
 var audio_munch = new Audio('audio/Cartoon_Munch.mp3');
 var audio_success = new Audio('audio/HighScore.wav');
 var audio_grow = new Audio('audio/smw_power-up.wav');
+var audio_nyancat = new Audio('audio/NyanCatoriginal.mp3');
+
 var firstTime = true;
 
 var updateScoreBoard = function()
@@ -13,10 +15,11 @@ var updateScoreBoard = function()
     //play munching noise (lose)
     audio_munch.play();
   }
-  else if (firstTime == false && player_score > 25) // player scored above 25!
+  else if (firstTime == false && player_score > 100) // player scored above 25!
             // can make this number lower if it is too hard
   {
     //play munching noise (success)
+    audio_eating.play();
     audio_success.play();
   }
   else if (firstTime == false && player_size > 1) // player scored

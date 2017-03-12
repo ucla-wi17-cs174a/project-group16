@@ -17,6 +17,9 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
     'display': function(time)
       {
 
+        if(main_menu)
+          return;
+
         var graphics_state  = this.graphics_state;
         var shared_scratchpad = this.shared_scratchpad.string_map;
 
@@ -51,8 +54,8 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
           }
 
           var x = -250 * sign;
-          var y = Math.floor(Math.random() * 100);
-          var z = Math.floor(Math.random() * 500);
+          var y = Math.floor(Math.random() * 75 + 30);
+          var z = Math.floor(Math.random() * 350 + 100);
           var size = 2;
 
           model_transform = mult( model_transform, translation( x, y, z ) );
@@ -103,6 +106,9 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
 
                   if(power_ups[i][4] == INV) {
                     // Go invincible
+                    audio_nyancat.currentTime = 0;
+                    audio_nyancat.play();
+
                     if(player_power.length != 0 && player_power[0] == INV) {
                       player_power[1] += 10000;
                     } else {
@@ -143,6 +149,7 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
           if(player_power[1] < 0) {
             player_power = [];
             player_speed = 0.02;
+            audio_nyancat.pause();
           }
         }
 
