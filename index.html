@@ -44,14 +44,15 @@ scoreBoard {
 <script type="text/javascript" src="js/game/enemy.js"                     ></script>
 <script type="text/javascript" src="js/game/environment.js"               ></script>
 <script type="text/javascript" src="js/game/scoreboard.js"                ></script>
+<script type="text/javascript" src="js/game/power-up.js"                ></script>
 
 
-<script type="text/javascript"> "use strict"
+<script type="text/javascript">
   window.onload = function init()
     {
 
-      var main_canvas = new Canvas_Manager( "gl-canvas", Color( 0.11, 0.42, 0.63, 1 ) ),
-      g_state = main_canvas.shared_scratchpad.graphics_state;
+      main_canvas = new Canvas_Manager( "gl-canvas", Color( 0.11, 0.42, 0.63, 1 ) );
+      var g_state = main_canvas.shared_scratchpad.graphics_state;
 
       shaders_in_use[ "Default"     ] = new Phong_or_Gouraud_Shader( g_state );
       shaders_in_use[ "Demo_Shader" ] = new Funny_Shader           ( g_state );
@@ -61,11 +62,15 @@ scoreBoard {
       for( var i = 0; i < texture_filenames_to_load.length; i++ ) textures_in_use[ texture_filenames_to_load[i] ] = ( new Texture( texture_filenames_to_load[i], false ) );
 
       main_canvas.register_display_object( new Debug_Screen     ( main_canvas ) );
-      main_canvas.register_display_object( new Game_Camera   ( main_canvas ) );
+
+      game_cam =  new Game_Camera   ( main_canvas );
+      main_canvas.register_display_object( game_cam);
 
       main_canvas.register_display_object( new Fish_Scene  ( main_canvas ) );
       main_canvas.register_display_object( new Enemy  ( main_canvas ) );
       main_canvas.register_display_object( new Environment  ( main_canvas ) );
+      main_canvas.register_display_object( new Power_Up  ( main_canvas ) );
+
       updateScoreBoard();
       main_canvas.render();
 

@@ -1,7 +1,10 @@
 // UCLA's Graphics Example Code (Javascript and C++ translations available), by Garett Ridge for CS174a.
 // tinywebgl_ucla.js - A file to show how to organize a complete graphics program.  It wraps common WebGL commands.
 
+
 var shapes_in_use = [], shaders_in_use = [], textures_in_use = [], active_shader, texture_filenames_to_load = [], gl, g_addrs;    // ****** GLOBAL VARIABLES *******
+var main_canvas, game_cam;
+
 
 function Declare_Any_Class( name, methods, superclass = Object, scope = window )              // Making javascript behave more like Object Oriented C++
   {
@@ -252,6 +255,7 @@ Declare_Any_Class( "Canvas_Manager",                      // This class performs
         this.displayables = [];
         this.shared_scratchpad = { animate: false, string_map: {}, graphics_state: new Graphics_State() };
       },
+    'update_keys': function( object ) { object.init_keys( this.controls ); },
     'register_display_object': function( object ) { this.displayables.unshift( object );  object.init_keys( this.controls ); },
     'render': function( time = 0 )                                                // Animate shapes based upon how much measured real time has transpired.
       {                                      this.shared_scratchpad.graphics_state.animation_delta_time = time - ( this.prev_time || 0 );

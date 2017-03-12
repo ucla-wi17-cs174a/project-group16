@@ -1,3 +1,11 @@
+var player_speed = 5;
+
+function setPlayerSpeed( s ) {
+  player_speed = s;
+  //main_canvas.update_keys(game_cam);
+}
+
+
 Declare_Any_Class( "Game_Camera",     // An example of a displayable object that our class Canvas_Manager can manage.  Adds both first-person and
   { 'construct': function( context )     // third-person style camera matrix controls to the canvas.
       { // 1st parameter below is our starting camera matrix.  2nd is the projection:  The matrix that determines how depth is treated.  It projects 3D points onto a plane.
@@ -30,7 +38,7 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
       },
     'init_keys': function( controls )   // init_keys():  Define any extra keyboard shortcuts here
       {
-        var speed = 3;
+        var speed = player_speed;
         controls.add( "Space", this, function() { this.thrust[1] = -speed; } );     controls.add( "Space", this, function() { this.thrust[1] =  0; }, {'type':'keyup'} );
         controls.add( "z",     this, function() { this.thrust[1] =  speed; } );     controls.add( "z",     this, function() { this.thrust[1] =  0; }, {'type':'keyup'} );
         controls.add( "w",     this, function() { this.thrust[2] =  speed; } );     controls.add( "w",     this, function() { this.thrust[2] =  0; }, {'type':'keyup'} );

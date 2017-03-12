@@ -99,7 +99,7 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
                 var tmp = dot( Tp, Tp );            // Apply a_inv*b coordinate frame shift
                 if( tmp  < player_size + 0.2) { // change this to 1 or 1.2 if positions are normalized in obj-shapes.js
 
-                  if(enemies[i][2] > player_size) {
+                  if(enemies[i][2] > player_size && !(player_power.length != 0 && player_power[0] == INV) ) {
                     // Player dies
                     player_size = 1;
                   } else {
