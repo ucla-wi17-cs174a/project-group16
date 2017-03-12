@@ -2,7 +2,7 @@
 
 ## How to play this game
 
-1. You play a fish which starts at size 1. Every fish that you eat increases your size by 0.1 and your score by 1. 
+1. You play as a fish which starts at size 1. Every fish that you eat increases your size by 0.1 and your score by 1. 
 
 2. Use your mouse to 'set' which direction your fish faces, and wasd keys to move the fish.
 
@@ -20,4 +20,8 @@
 
 1. Imported fish model from .obj file (obj file from internet)
 
-2. There are two powerups - invicibility and speed
+2. Certain audio clips play when you collide with a fish/powerup based on your current score/ size.
+
+3. There are two powerups - invicibility and speed
+
+4. This is a 3D version of the 2D flashy fish game. http://fishy-flash-game.com/
