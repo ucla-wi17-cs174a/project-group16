@@ -23,7 +23,10 @@ Declare_Any_Class( "Environment",
         var color  = new Material( Color( .2, .4, .5, 1 ), .2, 1,  1, 40 );
 
         var hello  = new Material( Color( .2,.4,.5,1 ), .4, .4, .8, 40 );
-        var sign = new Material( Color( 0,0,0,1 ), .7, .4, .4, 40, "img/press.png" );
+        var pressEnter = new Material( Color( 0,0,0,1 ), .7, .4, .4, 40, "img/press.png" );
+        var instructions = new Material( Color( 0,0,0,1 ), .7, .4, .4, 40, "img/instructions.png" );
+        var title = new Material( Color( 0,0,0,1 ), .7, .4, .4, 40, "img/title.png" );
+
 
         // Front wall
         model_transform = mult( model_transform, translation( 0, 0, -150 ) );
@@ -53,13 +56,17 @@ Declare_Any_Class( "Environment",
         //start sign
         if(main_menu) {
           model_transform = mat4();
+          model_transform = mult( model_transform, translation( 40, 10, -50 ) );
+          model_transform = mult( model_transform, scale( 17,17,0 ) );
+          shapes_in_use.square.draw( this.graphics_state, model_transform, pressEnter );
+          model_transform = mat4();
+          model_transform = mult( model_transform, translation( -40, 10, -50 ) );
+          model_transform = mult( model_transform, scale( 20,20,0 ) );
+          shapes_in_use.square.draw( this.graphics_state, model_transform, instructions );
+          model_transform = mat4();
           model_transform = mult( model_transform, translation( 0, 10, -50 ) );
           model_transform = mult( model_transform, scale( 17,17,0 ) );
-          shapes_in_use.square.draw( this.graphics_state, model_transform, sign );
-          model_transform = mat4();
-          model_transform = mult( model_transform, translation( 0, 10, -49 ) );
-          model_transform = mult( model_transform, scale( 17,3,0 ) );
-          //shapes_in_use.square.draw( this.graphics_state, model_transform, hello );
+          shapes_in_use.square.draw( this.graphics_state, model_transform, title );
         }
 
       }
