@@ -61,7 +61,7 @@ scoreBoard {
       shaders_in_use[ "Bump Map"    ] = new Fake_Bump_Mapping      ( g_state );
       shaders_in_use[ "Cool_Ball"   ] = new Cool_Ball              ( g_state );
 
-      texture_filenames_to_load.push( "img/text.png", "img/stars.png", "img/fishScales.jpg", "img/press2.png" , "img/press.png");
+      texture_filenames_to_load.push( "img/text.png", "img/stars.png", "img/fishScales.jpg", "img/press2.png" , "img/press.png", "img/instructions.png", "img/title.png");
       for( var i = 0; i < texture_filenames_to_load.length; i++ ) textures_in_use[ texture_filenames_to_load[i] ] = ( new Texture( texture_filenames_to_load[i], false ) );
 
       main_canvas.register_display_object( new Debug_Screen     ( main_canvas ) );
