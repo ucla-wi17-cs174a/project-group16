@@ -175,6 +175,8 @@ Declare_Any_Class( "Phong_or_Gouraud_Shader",
           uniform mat4 camera_transform, camera_model_transform, projection_camera_model_transform;
           uniform mat3 camera_model_transform_normal;
 
+          varying float vDisplacement;
+
           // LAVA CODE ***************** //
 
           varying vec2 vUv;
@@ -200,9 +202,10 @@ Declare_Any_Class( "Phong_or_Gouraud_Shader",
               // get a turbulent 3d noise using the normal, normal to high freq
               noise = 10.0 *  -.10 * turbulence( .5 * vNormal + animation_time );
               // get a 3d noise using the position, low frequency
-              float b = 5.0 * pnoise( 0.05 * vPosition + vec3( 2.0 * animation_time ), vec3( 100.0 ) );
+              float b = 5.0 * pnoise( 0.05 * vPosition, vec3( 100.0 ) );
               // compose both noises
-              float displacement = -noise + b;
+              float displacement = - noise + b;
+              vDisplacement = displacement;
 
               // move the position along the normal and transform it
               vec3 newPosition = vPosition + vNormal * displacement;
@@ -395,13 +398,22 @@ Declare_Any_Class( "Fake_Bump_Mapping",
 
             varying vec2 vUv;
             varying float noise;
+            varying float vDisplacement;
+
+            float random( vec3 scale, float seed ){
+              return fract( sin( dot( gl_FragCoord.xyz + seed, scale ) ) * 43758.5453 + seed ) ;
+            }
 
             void main() {
 
-                // compose the colour using the UV coordinate
-                // and modulate it with the noise like ambient occlusion
-                vec3 color = vec3( vUv * ( 1. - 2. * noise ), 0.0 );
-                gl_FragColor = vec4( .2, .2, .2, 1);//color.rgb, 1.0 );
+              // get a random offset
+              float r = 5. * random( vec3( 12.9898, 78.233, 151.7182 ), 0.0 );
+
+              float d = abs(vDisplacement);
+
+              vec3 color = vec3( d * 3. * noise * r, d * 3. * noise * r, d * 3. * noise * r );
+
+              gl_FragColor = vec4( color.rgb, 1.0 );
 
             }`;
         }

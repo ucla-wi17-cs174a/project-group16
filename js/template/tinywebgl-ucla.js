@@ -256,7 +256,7 @@ Declare_Any_Class( "Canvas_Manager",                      // This class performs
     'register_display_object': function( object ) { this.displayables.unshift( object );  object.init_keys( this.controls ); },
     'render': function( time = 0 )                                                // Animate shapes based upon how much measured real time has transpired.
       {                                      this.shared_scratchpad.graphics_state.animation_delta_time = time - ( this.prev_time || 0 );
-        if( this.shared_scratchpad.animate ) this.shared_scratchpad.graphics_state.animation_time      += this.shared_scratchpad.graphics_state.animation_delta_time;
+        this.shared_scratchpad.graphics_state.animation_time      += this.shared_scratchpad.graphics_state.animation_delta_time;
         this.prev_time = time;
 
         for ( let name in shapes_in_use ) if( !shapes_in_use[name].sent_to_GPU ) shapes_in_use[name].copy_onto_graphics_card();
