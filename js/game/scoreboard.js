@@ -5,6 +5,8 @@ var audio_munch = new Audio('audio/Cartoon_Munch.mp3');
 var audio_success = new Audio('audio/HighScore.wav');
 var audio_grow = new Audio('audio/smw_power-up.wav');
 var audio_nyancat = new Audio('audio/NyanCat.mp3');
+var audio_snowyhill = new Audio('audio/snowy-hill.wav');
+var audio_snowyhill_fast = new Audio('audio/snowy-hill-fast.wav');
 var firstTime = true;
 
 var updateScoreBoard = function() {
@@ -25,5 +27,5 @@ var updateScoreBoard = function() {
   }
 
   document.getElementById("scoreToUpdate").innerHTML = "<b>Current Score:</b> " + player_score + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fish Size: </b>" + Math.ceil(player_size * 10) / 10 + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Lives: </b>" + player_lives;
-  if (firstTime == true) firstTime = false; // at start of game
+  if (firstTime == true) { firstTime = false;  }// at start of game
 }

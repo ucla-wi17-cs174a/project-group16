@@ -1,5 +1,6 @@
 var INV = 0;
 var SPD = 1;
+var spawn_powerup_pls = false;
 
 Declare_Any_Class( "Power_Up",  // An example of a displayable object that our class Canvas_Manager can manage.  This one draws the scene's 3D shapes.
   { 'construct': function( context )
@@ -43,7 +44,7 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
         var speed = new Material( Color(.2,1,.2, 1), .3, .2, .8, 40);
 
         // Spawn new power up
-        if( power_ups.length < 2) {//&& Math.random() < 1.0 ) {
+        if( (power_ups.length < 2 && (spawn_powerup_pls || Math.random() < 0.001)) ) {
 
           var sign = Math.floor(Math.random() * 2);
 
@@ -56,7 +57,7 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
           var x = -250 * sign;
           var y = Math.floor(Math.random() * 75 + 30);
           var z = Math.floor(Math.random() * 350 + 100);
-          var size = 2;
+          var size = 10;
 
           model_transform = mult( model_transform, translation( x, y, z ) );
           model_transform = mult( model_transform, translation( 0, -50, -200 ) );
@@ -107,6 +108,8 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
                   if(power_ups[i][4] == INV) {
                     // Go invincible
                     audio_nyancat.currentTime = 0;
+                    audio_snowyhill.pause();
+                    audio_snowyhill_fast.pause();
                     audio_nyancat.play();
 
                     if(player_power.length != 0 && player_power[0] == INV) {
@@ -117,6 +120,9 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
                   } else if(power_ups[i][4] == SPD) {
                     player_power = [ SPD, 20000 ];
                     player_speed = .05;
+                    audio_nyancat.pause();
+                    audio_snowyhill.pause();
+                    audio_snowyhill_fast.play();
                   }
 
                   power_ups.splice(i, 1);
@@ -149,7 +155,9 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
           if(player_power[1] < 0) {
             player_power = [];
             player_speed = 0.02;
+            audio_snowyhill.play();
             audio_nyancat.pause();
+            audio_snowyhill_fast.pause();
           }
         }
 

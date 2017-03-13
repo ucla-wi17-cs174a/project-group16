@@ -8,7 +8,21 @@ Declare_Any_Class( "Environment",
       },
     'init_keys': function( controls )   // init_keys():  Define any extra keyboard shortcuts here
         {
-          controls.add( "Enter", this, function() { main_menu = false;  } );
+          controls.add( "Enter", this, function() { main_menu = false;
+            audio_snowyhill.addEventListener('ended', function() {
+              this.currentTime = 0;
+              this.play();
+            }, false);
+
+            audio_snowyhill.volume = 0.4;
+            audio_snowyhill.play();
+
+            audio_snowyhill_fast.addEventListener('ended', function() {
+              this.currentTime = 0;
+              this.play();
+            }, false);
+
+          } );
         },
     'display': function(time)
       {
