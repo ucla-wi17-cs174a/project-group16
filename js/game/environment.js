@@ -24,7 +24,7 @@ Declare_Any_Class( "Environment",
         var color  = new Material( Color( .2, .4, .5, 1 ), .2, 1,  1, 40 );
 
         var hello  = new Material( Color( .2,.4,.5,1 ), .4, .4, .8, 40 );
-        var sign = new Material( Color( 0,0,0,1 ), .7, .4, .4, 40, "img/press2.png" );
+        var sign = new Material( Color( 0,0,0,1 ), .7, .4, .4, 40, "img/press.png" );
 
         // Front wall
         model_transform = mult( model_transform, translation( 0, 0, -150 ) );
