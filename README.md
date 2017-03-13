@@ -31,7 +31,9 @@ The idea for the game comes from the a popular 2D game called Fishy Flash (http:
 
 * The game performs poorly on some older machines. We aren't exactly sure why this is since there are some WebGL programs that seem much more intricate and run perfectly fine. It is possible that the collision detection of the 100 fish that can spawn is causing this.
 
-## Some Advanced Topics
+* When playing the game on the Github page it takes some time to fully load all of the necessary files.
 
-1. Collision detection (between our fish and enemy fish)
-2. Bump mapping (for fish/fish scales)
+## Advanced Topics
+
+1. Collision detection: collision detection occurs between the player fish and each of the 100 spawnable fish / the 2 spawnable power ups. The fish cannot collide with themselves and neither can the power ups.
+2. Bump mapping: bump mapping occurs on the fish for their scales and there is an animated bump map on the power ups.
