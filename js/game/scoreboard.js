@@ -4,6 +4,7 @@ var audio_eating = new Audio('audio/Eating.mp3');
 var audio_munch = new Audio('audio/Cartoon_Munch.mp3');
 var audio_success = new Audio('audio/HighScore.wav');
 var audio_grow = new Audio('audio/smw_power-up.wav');
+var audio_nyancat = new Audio('audio/NyanCat_edit.mp3');
 var firstTime = true;
 
 var updateScoreBoard = function() {

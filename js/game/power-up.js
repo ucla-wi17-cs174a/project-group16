@@ -43,7 +43,7 @@ Declare_Any_Class( "Power_Up",  // An example of a displayable object that our c
         var speed = new Material( Color(.2,1,.2, 1), .3, .2, .8, 40);
 
         // Spawn new power up
-        if( power_ups.length < 2){// && Math.random() < 0.001 ) {
+        if( power_ups.length < 2) {//&& Math.random() < 1.0 ) {
 
           var sign = Math.floor(Math.random() * 2);
 
