@@ -1,6 +1,6 @@
 # project-group16: Flashy Fish
 
-Note: If you are running this game from your computer, type python -m SimpleHTTPServer or python -m http.server and then open localhost:8000.  Or you can go to https://ucla-wi17-cs174a.github.io/project-group16/ to play the game.
+Note: If you are running this game from your computer, navigate to the directory with index.html.  Next, if you have Python 2.x, type python -m SimpleHTTPServer or if you have Python 3.x, type python -m http.server and then open localhost:8000.  Or you can go to https://ucla-wi17-cs174a.github.io/project-group16/ to play the game.
 
 ## How to play this game (Press Enter to start)
 
