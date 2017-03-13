@@ -3,7 +3,9 @@
 project-group16 :
 
 Bryson Li 304-772-658
+
 Matt Garnett 504-573-592
+
 Michael Grieve 604-650-561
 
 Note: Please run this game using Google Chrome! It is the only browser we tested. If you are running this game from your computer, navigate to the directory with index.html. Next, if you have Python 2.x, type python -m SimpleHTTPServer or if you have Python 3.x, type python -m http.server and then open localhost:8000. Or you can go to https://ucla-wi17-cs174a.github.io/project-group16/ to play the game.
