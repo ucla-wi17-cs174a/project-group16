@@ -1,6 +1,8 @@
 # project-group16: Flashy Fish
 
-## How to play this game
+Note: If you are running this game from your computer, type python -m SimpleHTTPServer or python -m http.server and then open localhost:8000.  Or you can go to https://ucla-wi17-cs174a.github.io/project-group16/ to play the game.
+
+## How to play this game (Press Enter to start)
 
 1. You play as a fish which starts at size 1. Every fish that you eat increases your size by 0.1 and your score by 1. 
 
