@@ -1,4 +1,3 @@
-
 var main_menu = true;
 
 Declare_Any_Class( "Environment",

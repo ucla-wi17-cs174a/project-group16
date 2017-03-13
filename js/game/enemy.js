@@ -13,6 +13,29 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
 
         shapes_in_use.strip = new Cube();
         shapes_in_use.fish  = new Shape_From_File( "model/Fish3.obj", scale( 1, 1, 1 ) );
+      }, 'game_over': function() {
+
+        main_menu = true;
+
+        this.shared_scratchpad.string_map.enemies = [];
+        this.shared_scratchpad.string_map.enemies_speed = [];
+        this.shared_scratchpad.string_map.last_time = 0;
+        this.shared_scratchpad.string_map.last_spawn = 0;
+
+        player_score = 0;
+        player_size = 1;
+        player_lives = 3;
+        player_power = [];
+
+        this.shared_scratchpad.string_map.power_ups = [];
+        this.shared_scratchpad.string_map.power_ups_last_time = 0;
+        this.shared_scratchpad.string_map.power_ups_last_spawn = 0;
+
+        this.shared_scratchpad.yaw = mat4();
+        this.shared_scratchpad.pitch = mat4();
+        this.shared_scratchpad.position = mat4();
+
+        this.shared_scratchpad.camera_transform = this.graphics_state.reset_camera;
       },
     'display': function(time)
       {
@@ -20,7 +43,6 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
         var shared_scratchpad = this.shared_scratchpad.string_map;
 
         var enemies = shared_scratchpad.enemies;
-        var enemies_speed = shared_scratchpad.enemies_speed;
 
         if (time == null) time = 0;
 
@@ -111,6 +133,11 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
                   if(enemies[i][2] > player_size && !(player_power.length != 0 && player_power[0] == INV) ) {
                     // Player dies
                     player_size = 1;
+                    player_lives -= 1;
+
+                    if(player_lives < 0)
+                      this.game_over();
+
                   } else {
                     player_score += Math.ceil(enemies[i][2]);
                     player_size += 0.1;

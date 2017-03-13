@@ -24,6 +24,6 @@ var updateScoreBoard = function() {
     audio_grow.play();
   }
 
-  document.getElementById("scoreToUpdate").innerHTML = "<b>Current Score:</b> " + player_score + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fish Size: </b>" + Math.ceil(player_size * 10) / 10;
+  document.getElementById("scoreToUpdate").innerHTML = "<b>Current Score:</b> " + player_score + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Fish Size: </b>" + Math.ceil(player_size * 10) / 10 + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Lives: </b>" + player_lives;
   if (firstTime == true) firstTime = false; // at start of game
 }

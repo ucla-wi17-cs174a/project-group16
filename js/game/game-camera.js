@@ -12,6 +12,8 @@ Declare_Any_Class( "Game_Camera",     // An example of a displayable object that
         this.shared_scratchpad.pitch = mat4();
         this.shared_scratchpad.position = mat4();
 
+        this.shared_scratchpad.reset_camera = this.graphics_state.camera_transform;
+
         var element = document.getElementById("gl-canvas");
 
         element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;

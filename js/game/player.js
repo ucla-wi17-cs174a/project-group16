@@ -1,7 +1,7 @@
 var player_score = 0;
 var player_size = 1;
+var player_lives = 3;
 var player_power = [];
-
 
 Declare_Any_Class( "Fish_Scene",  // An example of a displayable object that our class Canvas_Manager can manage.  This one draws the scene's 3D shapes.
   { 'construct': function( context )
