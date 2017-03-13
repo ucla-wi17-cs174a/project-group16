@@ -21,6 +21,8 @@ Declare_Any_Class( "Enemy",  // An example of a displayable object that our clas
         audio_nyancat.pause();
         audio_snowyhill_fast.pause();
 
+        alert('GAME OVER');
+
         this.shared_scratchpad.string_map.enemies = [];
         this.shared_scratchpad.string_map.enemies_speed = [];
         this.shared_scratchpad.string_map.last_time = 0;

@@ -23,6 +23,15 @@ Note: Please run this game using Google Chrome! It is the only browser we tested
 
 The idea for the game comes from the a popular 2D game called Fishy Flash (http://fishy-flash-game.com/). We thought that bringing this fun 2D game to the 3D world would be fun and so that is how we came up with Fish Tank. Overall the game is interesting, but more in a novelty sense. It lacks real game design and there are too many frustrations that arise. In the 2D version the game requires skill and finesse to navigate around bigger fish. In the 3D world, navigation it not a major issue. Instead the biggest challenge of our game is perceiving depth. As you play the game you will find yourself often staring down a fish, unsure who is larger. Also, we weren't able to really "gamify" Fish Tank by adding a persistent high scoreboard or achievements. Because of these short comings, it is unlikely that Fish Tank will take off and become an Internet sensation—however, it should address the key points we have learned in the class as well as a couple advanced topics.
 
+## Notes
+
+* In order to test the power ups, press the 'p' key while playing. It will make sure there are always 2 power ups floating around.
+
+* The fish spawn randomly on each and follow straight paths on the x axis across the tank.
+
+* The invincibility power-up lasts 1/2 as long as the super speed one.
+
+
 ## Bugs
 
 * The walls are a suggestion, rather than rigid bodies. The problem we kept running into here is that we were trying to collide the player with the wall and we're not storing the player's coordinates anywhere, only the transform matrix. This is because Garett's template code uses thrust to propel the camera rather than discreet values of x, y, and z.
